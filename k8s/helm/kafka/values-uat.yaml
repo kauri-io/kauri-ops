@@ -1,0 +1,6 @@
+replicas: 3
+persistence:
+  storageClass: "storageclass"
+zookeeper:
+  servers: 3
+  storageClass: "storageclass"

@@ -1,0 +1,17 @@
+replicaCount: 1
+image:
+  repository: ethereum/client-go
+  tag: alltools-v1.7.3
+  pullPolicy: Always
+  command: 'geth --rinkeby --fast --cache 2048 --maxpeers 50 --rpc --rpcport 8545 --rpcaddr 0.0.0.0 --rpcapi=eth,net,web3 --rpccorsdomain "*"'
+service:
+  name: geth
+  type: ClusterIP
+  externalPort: 8545
+  internalPort: 8545
+data:
+  volumeSize: "200Gi"
+  volumeName: geth-data-testnet
+  accessModes:
+    - ReadWriteOnce
+  storageClass: storageclass

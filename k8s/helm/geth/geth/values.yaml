@@ -1,0 +1,42 @@
+# Default values for ethereum.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+imagePullPolicy: IfNotPresent
+
+bootnode:
+  replicaCount: 1
+  image:
+    repository: ethereum/client-go
+    tag: alltools-v1.7.3
+
+ethstats:
+  replicaCount: 1
+  image:
+    repository: ethereumex/eth-stats-dashboard
+    tag: latest
+  webSocketSecret: my-secret-for-connecting-to-ethstats
+  service:
+    type: LoadBalancer
+
+geth:
+  image:
+    repository: ethereum/client-go
+    tag: v1.7.3
+  tx:
+    # transaction nodes
+    replicaCount: 1
+    service:
+      type: ClusterIP
+  miner:
+    # miner nodes
+    replicaCount: 1
+    service:
+      type: ClusterIP
+    minerthreads: "1"
+    extraargs:
+    account:
+      secret: my-secret-account-password
+  genesis:
+    networkId: 44
+    accountsToFund:

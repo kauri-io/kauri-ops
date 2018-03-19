@@ -1,0 +1,17 @@
+replicaCount: 1
+image:
+  repository: ethereum/client-go
+  tag: latest
+  pullPolicy: Always
+  command: 'geth --fast --cache=1024 --rpc --rpccorsdomain "*" --rpcaddr "0.0.0.0"'
+service:
+  name: geth
+  type: NodePort
+  externalPort: 8545
+  internalPort: 8545
+data:
+  volumeSize: 200Gi
+  volumeName: geth-data
+  storageaccounttype: Premium_LRS
+  location: LOCATN
+  storageClass: fast-geth

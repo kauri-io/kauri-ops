@@ -1,0 +1,134 @@
+{
+  "repo": [
+    {
+      "comment": "GitHub account name.",
+      "key": "GITHUB_REPO_OWNER",
+      "value": "Consensys"
+    },
+    {
+      "comment": "GitHub repository name.",
+      "key": "GITHUB_REPO_NAME",
+      "value": "flow"
+    }
+  ],
+
+  "env": [
+    {
+      "comment": "Target cloud environment.",
+      "key": "TARGET_ENV",
+      "value": "dev"
+    },
+    {
+      "comment": "Target cloud host.",
+      "key": "CLOUD_ENV",
+      "value": "azure"
+    }
+  ],
+
+  "Registry": [
+    {
+      "comment": "Registry url for environment",
+      "key": "REGISTRY_URL",
+      "value": "commongroupacr.azurecr.io"
+    }
+  ],
+
+  "resourceGroup": [
+    {
+      "comment": "Resource group name for non-regional resources.",
+      "key": "COMMON_GROUP",
+      "value": "CommonGroup"
+    },
+    {
+      "comment": "Resource group name for Kubenetes cluster resources.",
+      "key": "K8_GROUP",
+      "value": "K8sGroup"
+    }
+  ],
+
+  "Kubenetes": [
+    {
+      "comment": "Kubenetes version",
+      "key": "K8S_VERSION",
+      "value": "1.8.7"
+    },
+    {
+      "comment": "Master node count for K8 cluster",
+      "key": "K8_MASTER_COUNT",
+      "value": "1"
+    },
+    {
+      "comment": "Agent node count for K8 cluster",
+      "key": "K8_AGENT_COUNT",
+      "value": "2"
+    },
+    {
+      "comment": "Master VM size for K8 cluster",
+      "key": "K8_MASTER_VM",
+      "value": "Standard_D2_v2"
+    },
+    {
+      "comment": "Agent VM size for K8 cluster",
+      "key": "K8_AGENT_VM",
+      "value": "Standard_D3_v2"
+    },
+    {
+      "comment": "Default Storage Account Name",
+      "key": "DEFAULT_STORAGE_NAME",
+      "value": "default"
+    },
+    {
+      "comment": "MongoDB Storage Account Name",
+      "key": "MONGO_STORAGE_NAME",
+      "value": "mongodbstorage"
+    },
+    {
+    "comment": "Elastic Storage Account Name",
+    "key": "ELASTIC_STORAGE_NAME",
+    "value": "elastcisearchstorage"
+    },
+    {
+    "comment": "Kafka Storage Account Name",
+    "key": "KAFKA_STORAGE_NAME",
+    "value": "kafkazoostorage"
+    },
+    {
+    "comment": "IPFS Storage Account Name",
+    "key": "IPFS_STORAGE_NAME",
+    "value": "ipfsstorage"
+    }
+  ],
+
+  "location": [
+    {
+      "comment": "West Europe region.",
+      "key": "WEST_EUROPE",
+      "value": "westeurope"
+    }
+  ],
+
+  "KBService": [
+    {
+      "comment": "Port number that KB service api listens to",
+      "key": "KB_SERVICE_PORT",
+      "value": "8080"
+    }
+  ],
+
+
+  "misc": [
+    {
+      "comment": "Azure container service name.",
+      "key": "ACS_NAME",
+      "value": "acs"
+    }
+  ],
+
+  "optional": [
+    {
+      "comment": "Optional resource group suffix to avoid naming conflict.",
+      "key": "GROUP_SUFFIX",
+      "value": ""
+    }
+  ]
+}

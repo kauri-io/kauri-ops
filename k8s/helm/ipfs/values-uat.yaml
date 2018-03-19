@@ -1,0 +1,4 @@
+replicaCount: 1
+image: ipfs/go-ipfs:v0.4.12
+persistence:
+  storageClass: "storageclass"

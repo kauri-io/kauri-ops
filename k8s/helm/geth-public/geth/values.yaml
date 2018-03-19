@@ -1,0 +1,20 @@
+# Default values for geth-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+image:
+  repository: ethereum/client-go
+  tag: latest
+  pullPolicy: Always
+  command: 'geth --rinkeby --fast --cache=512 --rpc --rpccorsdomain "*" --rpcaddr "0.0.0.0"'
+service:
+  name: geth
+  type: ClusterIP
+  externalPort: 8545
+  internalPort: 8545
+data:
+  volumeSize: 100Gi
+  volumeName: geth-data-testnet
+  storageaccounttype: Standard_LRS
+  location: eastus
+  storageClass: slow-geth

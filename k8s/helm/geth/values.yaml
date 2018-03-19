@@ -1,0 +1,15 @@
+geth:
+  extraargs: "--unlock 0 --password /root/.ethereum/accountpassword --targetgaslimit '9000000'"
+  tx:
+    service:
+      type: LoadBalancer
+  miner:
+    service:
+      type: LoadBalancer
+  genesis:
+    accountsToFund:
+      - 0xbfeceC47dD8bf5F6264A9830A9d26ef387c38A67
+      - 0x7855bC9e6564a44753A8d291B037135c605e6D8a
+      - 0x3B5086C7f2a8527abB539B89eCbB2bd51C2a8514
+      - 0x8ad900e096d7a0657440e32c0aed225ed85efb1b
+      - 0xeaf3f0f03794f1f4e45922805b39eac82ca9e682

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash-config
+data:
+  logstash.conf: |-
+    input {
+      beats {
+        port => 5000
+        tags  => ["service"]
+      }
+    }
+    filter {
+      if [type] == "kube-logs" {
+        mutate {
+          rename => ["log", "message"]
+        }
+        date {
+          match => ["time", "ISO8601"]
+          remove_field => ["time"]
+        }
+        grok {
+          match => { "source" => "/var/log/containers/%{DATA:pod_name}_%{DATA:namespace}_%{GREEDYDATA:container_name}-%{DATA:container_id}.log" }
+          remove_field => ["source"]
+        }
+      }
+    }
+    output {
+      if "service" in [tags] {
+        elasticsearch {
+          hosts    => [ 'elasticsearch.uat' ]
+          index    => "logstash-%{+YYYY.MM.dd}"
+        }
+      } else if "contract-event" in [tags] {
+        elasticsearch {
+          hosts    => [ 'elasticsearch.uat' ]
+          index    => "contract-event-%{+YYYY.MM.dd}"
+        }
+      }
+    }
