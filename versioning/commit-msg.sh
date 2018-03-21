@@ -8,7 +8,7 @@ current_branch="$(git rev-parse --abbrev-ref HEAD)"
 [ "$current_branch" != "$develop_branch" ] && exit 0
 
 # regex to validate in commit msg
-commit_regex='(wap-[0-9]+)()'
+commit_regex='(FLOW-[0-9].*breaking|major|feature|minor|fix|patch)'
 error_msg="Aborting commit. Your commit message is missing either a JIRA Issue ('FLOW-1111') or a semver commit type 'breaking','major','feature','minor','fix','patch'"
 
 if ! grep -iqE "$commit_regex" "$1"; then
