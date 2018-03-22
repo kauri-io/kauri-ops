@@ -42,9 +42,9 @@ VNUM3=${VERSION_BITS[2]}
 # minor-version-bump-message: '\+semver:\s?(feature|minor)'
 # patch-version-bump-message: '\+semver:\s?(fix|patch)'
 # get commits since last tag and extract the count for "semver: (major|minor|patch)"
-COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR=`git log --pretty=%B ${VERSION}..HEAD | egrep -c '\+semver:\s?(breaking|major)'`
-COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR=`git log --pretty=%B ${VERSION}..HEAD | egrep -c '\+semver:\s?(feature|minor)'`
-COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH=`git log --pretty=%B ${VERSION}..HEAD | egrep -c '\+semver:\s?(fix|patch)'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR=`git log --pretty=%B ${VERSION}..HEAD | egrep -c 'breaking|major'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR=`git log --pretty=%B ${VERSION}..HEAD | egrep -c 'feature|minor'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH=`git log --pretty=%B ${VERSION}..HEAD | egrep -c 'fix|patch'`
 
 if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR -gt 0 ]; then
     VNUM1=$((VNUM1+1))
