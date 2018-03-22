@@ -6,6 +6,7 @@ metadata:
     component: elasticsearch
     role: client
 spec:
+  type: LoadBalancer
   selector:
     component: elasticsearch
     role: client
@@ -16,4 +17,3 @@ spec:
   - name: http-9300
     port: 9300
     protocol: TCP
-#type: LoadBalancer
