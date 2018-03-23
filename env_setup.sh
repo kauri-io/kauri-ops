@@ -28,6 +28,3 @@ check_required_env_vars
 
 c_group=${TARGET_ENV}${COMMON_GROUP}${GROUP_SUFFIX}
 k8_group=${TARGET_ENV}${K8_GROUP}${GROUP_SUFFIX}
-
-#login to container registry
-az acr login -n ${c_group}acr
