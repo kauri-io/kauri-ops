@@ -46,6 +46,19 @@
     }
   ],
 
+  "GoogleCloud": [
+    {
+      "comment": "Google Cloud Project ID",
+      "key": "GOOGLE_PROJECT_ID",
+      "value": "kauri-197812"
+    },
+    {
+      "comment": "Google Cloud Zone",
+      "key": "GOOGLE_ZONE",
+      "value": "us-east1-b"
+    }
+  ],
+
   "Kubenetes": [
     {
       "comment": "Kubenetes version",
