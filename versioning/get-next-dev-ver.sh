@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #get highest tags across all branches, not just the current branch
 VERSION=`git describe --tags $(git rev-list --tags --max-count=1)`
