@@ -299,9 +299,6 @@ function create_kubernetes_gke()
   if [ -z "$(gcloud beta container clusters describe ${acs_name})" ]; then
     gcloud beta container clusters create ${acs_name} \
                   --num-nodes ${agent_count} --machine-type ${agent_size}
-
-    kubectl create clusterrolebinding --user system:serviceaccount:kube-system:default kube-system-cluster-admin --clusterrole cluster-admin
-    kubectl create clusterrolebinding --user system:serviceaccount:default:default default-cluster-edit --clusterrole edit
   fi
 }
 
