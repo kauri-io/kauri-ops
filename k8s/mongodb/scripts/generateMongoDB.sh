@@ -10,7 +10,7 @@ fi
 
 
 #
-sed -e "s/storageclass/${DEFAULT_STORAGE_NAME}/g" ../mongodb-service.yaml > /tmp/k8s-service.yaml
+sed -e "s/storageclass/${DEFAULT_STORAGE_NAME}/g" ../mongodb-service-${TARGET_ENV}.yaml > /tmp/k8s-service.yaml
 kubectl apply -f /tmp/k8s-service.yaml
 rm /tmp/k8s-service.yaml
 sleep 5

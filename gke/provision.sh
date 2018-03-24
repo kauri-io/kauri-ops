@@ -46,6 +46,7 @@ helm init --upgrade
 
 
 #Set up environment variables for local dev environment
-source ../env_setup.sh "$@"
+cd ..
+source env_setup.sh "$@"
 
 print_banner 'Provision completed'

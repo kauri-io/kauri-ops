@@ -20,6 +20,6 @@ parse_args "$@"
 # Load config.json and export environment variables
 load_config
 
-# Delete resource groups in parallel
-log_info "Start deleting resource group ${c_group}..."
+# Delete kubenetes cluster
+log_info "Start deleting kubenetes cluster ${ACS_NAME}..."
 gcloud beta container clusters delete ${ACS_NAME}
