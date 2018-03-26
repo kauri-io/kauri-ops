@@ -39,6 +39,7 @@ fi
 kubectl config set-context $(kubectl config current-context) --namespace=${TARGET_ENV}
 
 kubectl create clusterrolebinding --user system:serviceaccount:kube-system:default kube-system-cluster-admin --clusterrole cluster-admin
+kubectl create clusterrolebinding --user system:serviceaccount:kube-system:kubernetes-dashboard kube-system-cluster-dashboard --clusterrole cluster-admin
 kubectl create clusterrolebinding --user system:serviceaccount:${TARGET_ENV}:default ${TARGET_ENV}-cluster-edit --clusterrole edit
 
 print_banner 'Initialising Helm & Tiller...'
