@@ -28,3 +28,11 @@ check_required_env_vars
 
 c_group=${TARGET_ENV}${COMMON_GROUP}${GROUP_SUFFIX}
 k8_group=${TARGET_ENV}${K8_GROUP}${GROUP_SUFFIX}
+
+if [ "${CLOUD_ENV}" == "azure" ]; then
+  echo "azure"
+else
+  gcloud config set project $GOOGLE_PROJECT_ID
+  gcloud container clusters get-credentials $ACS_NAME --zone $GOOGLE_ZONE
+  kubectl config set-context $(kubectl config current-context) --namespace=${TARGET_ENV}
+fi
