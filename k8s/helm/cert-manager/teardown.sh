@@ -5,4 +5,4 @@ if [ "${TARGET_ENV}" == "" ]; then
   exit 1
 fi
 
-helm delete --purge cert-manager --namespace kube-system
+helm delete --purge cert-manager

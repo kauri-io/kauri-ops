@@ -6,5 +6,5 @@ if [ "${TARGET_ENV}" == "" ]; then
   exit 1
 fi
 
-helm install --name cert-manager -f values-${TARGET_ENV}.yaml stable/cert-manager
-kubectl apply -f lets-encrypt-${TARGET_ENV}.yml
+helm install --name cert-manager -f values.yaml stable/cert-manager
+kubectl apply -f lets-encrypt-prod.yml
