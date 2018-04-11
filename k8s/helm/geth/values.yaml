@@ -1,15 +1,21 @@
 geth:
-  extraargs: "--unlock 0 --password /root/.ethereum/accountpassword --targetgaslimit '9000000'"
+  extraargs: "--etherbase '0x37648FC15A8365735289e002d65D44D80c505e8B' --targetgaslimit '9000000'"
   tx:
     service:
       type: LoadBalancer
   miner:
     service:
-      type: LoadBalancer
+      type: ClusterIP
   genesis:
+    networkId: 224895
     accountsToFund:
       - 0xbfeceC47dD8bf5F6264A9830A9d26ef387c38A67
       - 0x7855bC9e6564a44753A8d291B037135c605e6D8a
       - 0x3B5086C7f2a8527abB539B89eCbB2bd51C2a8514
       - 0x8ad900e096d7a0657440e32c0aed225ed85efb1b
       - 0xeaf3f0f03794f1f4e45922805b39eac82ca9e682
+      - 0x37648FC15A8365735289e002d65D44D80c505e8B
+      - 0x8ef742b9BD0413C3a0eD98E8a85ef84dFcBcBF11
+      - 0x52d5520c145553241ffe4609008695519b3ad705
+      - 0x31b26E43651e9371C88aF3D36c14CfD938BaF4Fd
+      - 0xf0f15cedc719b5a55470877b0710d5c7816916b1
