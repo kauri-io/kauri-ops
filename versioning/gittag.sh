@@ -62,16 +62,16 @@ GIT_COMMIT_COUNT=`git rev-list --count HEAD`
 echo "Commit count: $GIT_COMMIT_COUNT"
 export BUILD_NUMBER=$GIT_COMMIT_COUNT
 
-#create new tag
-NEW_TAG="$VNUM1.$VNUM2.$VNUM3"
+#always tag if there is no semver bump then always bump fix/patch version
+if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR -gt 0 ] ||  [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR -gt 0 ] || [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH -gt 0 ]; then
+    NEW_TAG="$VNUM1.$VNUM2.$VNUM3"
+else
+    VNUM3=$((VNUM3+1))
+    NEW_TAG="$VNUM1.$VNUM2.$VNUM3"
+fi
 
 echo "Updating $VERSION to $NEW_TAG"
 
-#only tag if commit message have version-bump-message as mentioned above
-if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR -gt 0 ] ||  [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR -gt 0 ] || [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH -gt 0 ]; then
-    echo "Tagged with $NEW_TAG"
-    git tag "$NEW_TAG"
-    git push origin ${NEW_TAG}
-else
-    echo "Already a tag on this commit"
-fi
+echo "Tagged with $NEW_TAG"
+git tag "$NEW_TAG"
+git push origin ${NEW_TAG}
