@@ -34,6 +34,37 @@ spec:
         volumeMounts:
           - name: ipfs-storage
             mountPath: /data/ipfs
+      {{- if .Values.ipfscluster.enabled }}
+      - name: cluster-{{ .Chart.Name }}
+        image: {{ .Values.ipfscluster.image }}
+        env:
+        - name: CLUSTER_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "ipfs.fullname" . }}-ipfs-cluster-secret
+              key: CLUSTER_SECRET
+        - name: IPFS_API
+          value: /ip4/127.0.0.1/tcp/5001
+        ports:
+        - containerPort: 9094
+          name: api
+        - containerPort: 9095
+          name: gateway
+        - containerPort: 9096
+          name: tcp
+        volumeMounts:
+          - name: ipfs-storage
+            mountPath: /data/ipfs-cluster
+      - name: ipfs-cluster-sidecar
+        image: joshorig/ipfs-cluster-k8s-sidecar
+        env:
+          - name: IPFSCLUSTER_SIDECAR_POD_LABELS
+            value: "app={{ template "ipfs.name" . }},release={{ .Release.Name }}"
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+      {{- end }}
 
   {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:

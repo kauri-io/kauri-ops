@@ -17,6 +17,18 @@ spec:
   - port: 8080
     targetPort: 8080
     name: gateway
+  {{- if .Values.ipfscluster.enabled }}
+  - port: 9094
+    targetPort: 9094
+    name: cluster-api
+  - port: 9095
+    targetPort: 9095
+    name: cluster-gateway
+  - port: 9096
+    targetPort: 9096
+    name: cluster-tcp
+    protocol: TCP
+  {{- end }}
   selector:
     app: {{ template "ipfs.name" . }}
     release: {{ .Release.Name }}
