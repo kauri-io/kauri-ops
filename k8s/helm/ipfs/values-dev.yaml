@@ -1,7 +1,7 @@
-replicaCount: 2
+replicaCount: 1
 image: ipfs/go-ipfs:v0.4.12
 persistence:
   storageClass: "storageclass"
 ipfscluster:
-  enabled: true
+  enabled: false
   secret: 1aebe6d1ff52d96241e00d1abbd1be0743e3ccd0e3f8a05e3c8dd2bbbddb7b93
