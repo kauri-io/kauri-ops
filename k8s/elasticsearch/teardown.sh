@@ -9,5 +9,5 @@ kubectl delete deployments es-master
 sleep 3
 
 # Delete persistent volume claims
-kubectl delete persistentvolumeclaims -l role=data -l component=elasticsearch
+#kubectl delete persistentvolumeclaims -l role=data -l component=elasticsearch
 sleep 3

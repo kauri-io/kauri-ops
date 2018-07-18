@@ -1,3 +1,3 @@
 service:
-  type: LoadBalancer
+  type: ClusterIP
 env: { ELASTICSEARCH_URL: "http://elasticsearch.dev:9200", KUBERNETES_TRUST_CERT: true}

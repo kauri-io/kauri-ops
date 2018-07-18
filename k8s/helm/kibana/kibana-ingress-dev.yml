@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.org/websocket-services: "kibana-dev-kibana"
+    ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/tls-acme: "true"
+  name: kibana-ingress
+  namespace: dev
+spec:
+  tls:
+  - hosts:
+    - kibana.dev.kauri.io
+    secretName: dev-kibana-tls
+  rules:
+    - host: kibana.dev.kauri.io
+      http:
+        paths:
+          - backend:
+              serviceName: kibana-dev-kibana
+              servicePort: 443
+            path: /
