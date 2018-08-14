@@ -16,7 +16,7 @@
     {
       "comment": "Target cloud environment.",
       "key": "TARGET_ENV",
-      "value": "dev"
+      "value": "dev2"
     },
     {
       "comment": "Target cloud host.",
@@ -113,7 +113,7 @@
     {
       "comment": "Azure container service name.",
       "key": "ACS_NAME",
-      "value": "kauri-dev"
+      "value": "kauri-dev2"
     }
   ],
 

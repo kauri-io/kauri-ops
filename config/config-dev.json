@@ -21,15 +21,7 @@
     {
       "comment": "Target cloud host.",
       "key": "CLOUD_ENV",
-      "value": "azure"
-    }
-  ],
-
-  "Registry": [
-    {
-      "comment": "Registry url for environment",
-      "key": "REGISTRY_URL",
-      "value": "commongroupacr.azurecr.io"
+      "value": "google"
     }
   ],
 
@@ -43,6 +35,27 @@
       "comment": "Resource group name for Kubenetes cluster resources.",
       "key": "K8_GROUP",
       "value": "K8sGroup"
+    }
+  ],
+
+  "Registry": [
+    {
+      "comment": "Registry url for environment",
+      "key": "REGISTRY_URL",
+      "value": "gcr.io"
+    }
+  ],
+
+  "GoogleCloud": [
+    {
+      "comment": "Google Cloud Project ID",
+      "key": "GOOGLE_PROJECT_ID",
+      "value": "kauri-197812"
+    },
+    {
+      "comment": "Google Cloud Zone",
+      "key": "GOOGLE_ZONE",
+      "value": "us-east1-b"
     }
   ],
 
@@ -65,37 +78,17 @@
     {
       "comment": "Master VM size for K8 cluster",
       "key": "K8_MASTER_VM",
-      "value": "Standard_D2_v2"
+      "value": "n1-standard-1"
     },
     {
       "comment": "Agent VM size for K8 cluster",
       "key": "K8_AGENT_VM",
-      "value": "Standard_D3_v2"
+      "value": "n1-standard-2"
     },
     {
       "comment": "Default Storage Account Name",
       "key": "DEFAULT_STORAGE_NAME",
-      "value": "default"
-    },
-    {
-      "comment": "MongoDB Storage Account Name",
-      "key": "MONGO_STORAGE_NAME",
-      "value": "mongodbstorage"
-    },
-    {
-    "comment": "Elastic Storage Account Name",
-    "key": "ELASTIC_STORAGE_NAME",
-    "value": "elastcisearchstorage"
-    },
-    {
-    "comment": "Kafka Storage Account Name",
-    "key": "KAFKA_STORAGE_NAME",
-    "value": "kafkazoostorage"
-    },
-    {
-    "comment": "IPFS Storage Account Name",
-    "key": "IPFS_STORAGE_NAME",
-    "value": "ipfsstorage"
+      "value": "standard"
     }
   ],
 
@@ -103,7 +96,7 @@
     {
       "comment": "West Europe region.",
       "key": "WEST_EUROPE",
-      "value": "westeurope"
+      "value": "eastus"
     }
   ],
 
@@ -120,7 +113,7 @@
     {
       "comment": "Azure container service name.",
       "key": "ACS_NAME",
-      "value": "acs"
+      "value": "kauri-dev"
     }
   ],
 
