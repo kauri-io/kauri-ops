@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web3-auth-config
+  labels:
+    app: web3-auth
+data:
+  web3auth-conf.yml: |-
+    ethereum:
+      enable: true
+      node:
+        url: ${RPC_URL}
+    web3-auth:
+      apps:
+        - appId: kauri
+          jwtSetting:
+            issuer: "kauri"
+            secret: "kauri-secret"
+            expiration: 2592000
+          authoritySetting:
+            enable: true
+            smartContract: ${CONTRACT_ADDRESS}
+            mode: EVENT
+          clients:
+            - clientId: kauri-gateway
+              type: bearer
+              url: ${KAURI_GATEWAY_URL}
+              loginSetting:
+                timeout: 60
+            - clientId: kauri-usvc
+              type: bearer
+              url: ${KAURI_USVC_URL}
+              loginSetting:
+                timeout: 60

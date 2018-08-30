@@ -1,0 +1,50 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web3-auth
+  labels:
+    app: web3-auth
+    tier: compute
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: web3-auth
+        tier: compute
+    spec:
+      containers:
+      - image: kauriorg/web3auth:latest
+        command:
+          - "java"
+          - "-jar"
+          - "app.jar"
+          - "--spring.config.location=${WEB3AUTH_CONF}"
+        imagePullPolicy: Always
+        name: web3-auth
+        env:
+          - name: WEB3AUTH_CONF
+            value: /etc/config/web3auth-conf.yml
+          - name: RPC_URL
+            value: https://rinkeby.infura.io
+          - name: KAURI_GATEWAY_URL
+            value: monolith.dev2:8081
+          - name: KAURI_USVC_URL
+            value: monolith.dev2:8081
+          - name: CONTRACT_ADDRESS
+            valueFrom:
+              secretKeyRef:
+                name: smart-contract-addresses
+                key: CommunityContractAddress
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: web3-auth-config
