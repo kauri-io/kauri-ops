@@ -35,4 +35,5 @@ else
   gcloud config set project $GOOGLE_PROJECT_ID
   gcloud container clusters get-credentials $ACS_NAME --zone $GOOGLE_ZONE
   kubectl config set-context $(kubectl config current-context) --namespace=${TARGET_ENV}
+  gcloud auth configure-docker
 fi
