@@ -27,8 +27,16 @@ data:
               url: ${KAURI_GATEWAY_URL}
               loginSetting:
                 timeout: 60
+                cookieSetting:
+                    path: "/"
+                    domain: "${DOMAIN_NAME:localhost}"
+                    secure: false
             - clientId: kauri-usvc
               type: bearer
               url: ${KAURI_USVC_URL}
               loginSetting:
                 timeout: 60
+                cookieSetting:
+                    path: "/"
+                    domain: "${DOMAIN_NAME:localhost}"
+                    secure: false
