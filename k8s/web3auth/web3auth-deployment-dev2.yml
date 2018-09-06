@@ -31,9 +31,9 @@ spec:
           - name: RPC_URL
             value: https://rinkeby.infura.io
           - name: KAURI_GATEWAY_URL
-            value: monolith.dev:8081
+            value: monolith.dev2:8081
           - name: KAURI_USVC_URL
-            value: monolith.dev:8081
+            value: monolith.dev2:8081
           - name: CONTRACT_ADDRESS
             valueFrom:
               secretKeyRef:
