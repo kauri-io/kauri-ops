@@ -29,7 +29,7 @@ spec:
           - name: WEB3AUTH_CONF
             value: /etc/config/web3auth-conf.yml
           - name: RPC_URL
-            value: https://rinkeby.infura.io
+            value: wss://rinkeby.infura.io/ws
           - name: KAURI_GATEWAY_URL
             value: monolith.dev:8081
           - name: KAURI_USVC_URL
