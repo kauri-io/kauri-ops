@@ -31,14 +31,20 @@ spec:
           - name: RPC_URL
             value: https://rinkeby.infura.io
           - name: KAURI_GATEWAY_URL
-            value: monolith.dev2:8081
+            value: monolith.dev:8081
           - name: KAURI_USVC_URL
-            value: monolith.dev2:8081
+            value: monolith.dev:8081
           - name: CONTRACT_ADDRESS
             valueFrom:
               secretKeyRef:
                 name: smart-contract-addresses
                 key: CommunityContractAddress
+          - name: DOMAIN_NAME
+            value: ".dev.kauri.io"
+          - name: CORS_ORIGIN
+            value: "http://localhost:3000,https://dev.kauri.io,https://dev2.kauri.io,https://beta.kauri.io,https://admin.kauri.io"
+          - name: SPRING_DATA_MONGODB_HOST
+            value: mongo.dev
         ports:
         - containerPort: 8080
         volumeMounts:

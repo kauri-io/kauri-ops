@@ -39,6 +39,12 @@ spec:
               secretKeyRef:
                 name: smart-contract-addresses
                 key: CommunityContractAddress
+          - name: DOMAIN_NAME
+            value: ".beta.kauri.io"
+          - name: CORS_ORIGIN
+            value: "http://localhost:3000,https://dev.kauri.io,https://dev2.kauri.io,https://beta.kauri.io,https://admin.kauri.io"
+          - name: SPRING_DATA_MONGODB_HOST
+            value: mongo.uat
         ports:
         - containerPort: 8080
         volumeMounts:
