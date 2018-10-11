@@ -6,48 +6,39 @@ metadata:
     app: web3-auth
 data:
   web3auth-conf.yml: |-
-
     web3auth:               
       appId: kauri
-
       otp:
         type: DB
         dictionnary: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
         length: 10
         prefix: "Log in to kauri.io by signing this secret code: "
         expiration: 60
-        
       jwt:
         issuer: "kauri"
         secret: "kauri-secret"
         expiration: 2592000
-        
       cookie:
          path: "/"
          domain: "${DOMAIN_NAME:localhost}"
          secure: false
-          
       authority:
         mode: CACHE 
         kafkaAddress: ${KAFKA_ADDRESSES:localhost:9092}
         groupId: web3auth
         topic: contract-events
-        
       clients:
         - clientId: kauri-gateway
           type: BEARER
           url: ${KAURI_GATEWAY_URL}
-        
         - clientId: kauri-usvc
           type: BEARER
           url: ${KAURI_USVC_URL}
-          
       cors:
         origins: "${CORS_ORIGIN:http://localhost:8080}"
         methods: "${CORS_METHODS:GET,POST,PUT,OPTIONS,DELETE,PATCH}"
         headers: "${CORS_HEADERS:Access-Control-Allow-Headers,Origin,X-Requested-With,Content-Type,Accept,X-Auth-Token}"
         credentials: "${CORS_CREDENTIALS:true}"
-      
       mongodb:
         host: ${SPRING_DATA_MONGODB_HOST:localhost}
         port: ${SPRING_DATA_MONGODB_PORT:27017}
