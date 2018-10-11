@@ -1,4 +1,4 @@
-apiVersion: v1
+  apiVersion: v1
 kind: ConfigMap
 metadata:
   name: web3-auth-config
@@ -6,37 +6,49 @@ metadata:
     app: web3-auth
 data:
   web3auth-conf.yml: |-
-    ethereum:
-      enable: true
-      node:
-        url: ${RPC_URL}
-    web3-auth:
-      apps:
-        - appId: kauri
-          jwtSetting:
-            issuer: "kauri"
-            secret: "kauri-secret"
-            expiration: 2592000
-          authoritySetting:
-            enable: true
-            smartContract: ${CONTRACT_ADDRESS}
-            mode: EVENT
-          clients:
-            - clientId: kauri-gateway
-              type: bearer
-              url: ${KAURI_GATEWAY_URL}
-              loginSetting:
-                timeout: 60
-                cookieSetting:
-                    path: "/"
-                    domain: "${DOMAIN_NAME:localhost}"
-                    secure: false
-            - clientId: kauri-usvc
-              type: bearer
-              url: ${KAURI_USVC_URL}
-              loginSetting:
-                timeout: 60
-                cookieSetting:
-                    path: "/"
-                    domain: "${DOMAIN_NAME:localhost}"
-                    secure: false
+
+    web3auth:               
+      appId: kauri
+
+      otp:
+        type: DB
+        dictionnary: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
+        length: 10
+        prefix: "Log in to kauri.io by signing this secret code: "
+        expiration: 60
+        
+      jwt:
+        issuer: "kauri"
+        secret: "kauri-secret"
+        expiration: 2592000
+        
+      cookie:
+         path: "/"
+         domain: "${DOMAIN_NAME:localhost}"
+         secure: false
+          
+      authority:
+        mode: CACHE 
+        kafkaAddress: ${KAFKA_ADDRESSES:localhost:9092}
+        groupId: web3auth
+        topic: contract-events
+        
+      clients:
+        - clientId: kauri-gateway
+          type: BEARER
+          url: ${KAURI_GATEWAY_URL}
+        
+        - clientId: kauri-usvc
+          type: BEARER
+          url: ${KAURI_USVC_URL}
+          
+      cors:
+        origins: "${CORS_ORIGIN:http://localhost:8080}"
+        methods: "${CORS_METHODS:GET,POST,PUT,OPTIONS,DELETE,PATCH}"
+        headers: "${CORS_HEADERS:Access-Control-Allow-Headers,Origin,X-Requested-With,Content-Type,Accept,X-Auth-Token}"
+        credentials: "${CORS_CREDENTIALS:true}"
+      
+      mongodb:
+        host: ${SPRING_DATA_MONGODB_HOST:localhost}
+        port: ${SPRING_DATA_MONGODB_PORT:27017}
+        database: ${SPRING_DATA_MONGODB_DATABASE:web3auth}     
