@@ -28,23 +28,18 @@ spec:
         env:
           - name: WEB3AUTH_CONF
             value: /etc/config/web3auth-conf.yml
-          - name: RPC_URL
-            value: wss://rinkeby.infura.io/ws
           - name: KAURI_GATEWAY_URL
             value: monolith.dev:8081
           - name: KAURI_USVC_URL
             value: monolith.dev:8081
-          - name: CONTRACT_ADDRESS
-            valueFrom:
-              secretKeyRef:
-                name: smart-contract-addresses
-                key: CommunityContractAddress
           - name: DOMAIN_NAME
             value: ".dev.kauri.io"
           - name: CORS_ORIGIN
             value: "http://localhost:3000,https://dev.kauri.io,https://dev2.kauri.io,https://beta.kauri.io,https://admin.kauri.io"
           - name: SPRING_DATA_MONGODB_HOST
             value: mongo.dev
+          - name: KAFKA_ADDRESSES
+            value: kafka-dev-kafka-headless.dev:9092
         ports:
         - containerPort: 8080
         volumeMounts:
