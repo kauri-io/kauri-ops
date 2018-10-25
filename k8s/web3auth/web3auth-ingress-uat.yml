@@ -20,4 +20,4 @@ spec:
           - backend:
               serviceName: web3-auth
               servicePort: 8080
-            path: /auth
+            path: /web3auth
