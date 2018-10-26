@@ -6,7 +6,7 @@ metadata:
     app: web3-auth
 data:
   web3auth-conf.yml: |-
-    web3auth:               
+    web3auth:
       appId: kauri
       otp:
         type: DB
@@ -23,7 +23,7 @@ data:
          domain: "${DOMAIN_NAME:localhost}"
          secure: false
       authority:
-        mode: CACHE 
+        mode: CACHE
         kafkaAddress: ${KAFKA_ADDRESSES:localhost:9092}
         groupId: web3auth
         topic: contract-events
@@ -42,4 +42,4 @@ data:
       mongodb:
         host: ${SPRING_DATA_MONGODB_HOST:localhost}
         port: ${SPRING_DATA_MONGODB_PORT:27017}
-        database: ${SPRING_DATA_MONGODB_DATABASE:web3auth}     
+        database: ${SPRING_DATA_MONGODB_DATABASE:web3auth}

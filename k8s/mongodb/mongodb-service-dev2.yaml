@@ -42,6 +42,9 @@ spec:
       containers:
         - name: mongo
           image: mongo:3.6.0
+          env:
+            - name: USE_CLAIM_NAME
+              value: "true"
           command:
             - mongod
             - "--replSet"
@@ -62,11 +65,14 @@ spec:
               value: "role=mongo,environment=dev"
             - name: KUBERNETES_MONGO_SERVICE_NAME
               value: mongo
+            - name: USE_CLAIM_NAME
+              value: "true"
   volumeClaimTemplates:
   - metadata:
       name: mongo-persistent-storage
       annotations:
         volume.beta.kubernetes.io/storage-class: "storageclass"
+        backup.kubernetes.io/deltas: "P1D P30D P360D"
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:

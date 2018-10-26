@@ -49,6 +49,8 @@ spec:
           value: "false"
         - name: "ES_JAVA_OPTS"
           value: "-Xms256m -Xmx256m"
+        - name: USE_CLAIM_NAME
+          value: "true"
         ports:
         - containerPort: 9300
           name: transport
@@ -66,6 +68,7 @@ spec:
       name: storage
       annotations:
         volume.beta.kubernetes.io/storage-class: "storageclass"
+        backup.kubernetes.io/deltas: "P1D P30D P360D"
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:
