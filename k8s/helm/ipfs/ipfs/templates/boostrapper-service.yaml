@@ -1,0 +1,36 @@
+{{- if .Values.ipfscluster.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "ipfs.bootstrapper.servicename" . }}
+  labels:
+    app: {{ template "ipfs.bootstrapper.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - port: 5001
+    targetPort: 5001
+    protocol: TCP
+    name: api
+  - port: 8080
+    targetPort: 8080
+    name: gateway
+  {{- if .Values.ipfscluster.enabled }}
+  - port: 9094
+    targetPort: 9094
+    name: cluster-api
+  - port: 9095
+    targetPort: 9095
+    name: cluster-gateway
+  - port: 9096
+    targetPort: 9096
+    name: cluster-tcp
+    protocol: TCP
+  {{- end }}
+  selector:
+    app: {{ template "ipfs.bootstrapper.name" . }}
+    release: {{ .Release.Name }}
+{{- end }}

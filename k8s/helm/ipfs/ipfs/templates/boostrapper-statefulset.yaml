@@ -1,19 +1,20 @@
+{{- if .Values.ipfscluster.enabled }}
 apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
-  name: {{ template "ipfs.fullname" . }}
+  name: {{ template "ipfs.bootstrapper.fullname" . }}
   labels:
-    app: {{ template "ipfs.name" . }}
+    app: {{ template "ipfs.bootstrapper.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
 spec:
-  replicas: {{ .Values.replicaCount }}
-  serviceName: {{ template "ipfs.servicename" . }}
+  replicas: 1
+  serviceName: {{ template "ipfs.bootstrapper.servicename" . }}
   template:
     metadata:
       labels:
-        app: {{ template "ipfs.name" . }}
+        app: {{ template "ipfs.bootstrapper.name" . }}
         chart: {{ .Chart.Name }}-{{ .Chart.Version }}
         heritage: {{ .Release.Service }}
         release: {{ .Release.Name }}
@@ -37,15 +38,8 @@ spec:
         volumeMounts:
           - name: ipfs-storage
             mountPath: /data/ipfs
-      {{- if .Values.ipfscluster.enabled }}
       - name: cluster-{{ .Chart.Name }}
         image: {{ .Values.ipfscluster.image }}
-        command:
-          - "ipfs-cluster-service"
-          - "daemon"
-          - "--upgrade"
-          - "--bootstrap"
-          - "/ip4/{{ .Values.ipfscluster.bootstrapperIP }}/tcp/9096/ipfs/{{ .Values.ipfscluster.bootstrapperPeerId }}"
         env:
         - name: CLUSTER_SECRET
           valueFrom:
@@ -64,17 +58,6 @@ spec:
         volumeMounts:
           - name: ipfs-storage
             mountPath: /data/ipfs-cluster
-      initContainers:
-      - name: init-ipfscluster-service
-        image: {{ .Values.ipfscluster.image }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
-        command:
-        - "ipfs-cluster-service"
-        - "init"
-        volumeMounts:
-          - name: ipfs-storage
-            mountPath: /data/ipfs-cluster
-      {{- end }}
 
   {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
@@ -95,3 +78,4 @@ spec:
         - name: ipfs-storage
           emptyDir: {}
   {{- end }}
+{{- end }}

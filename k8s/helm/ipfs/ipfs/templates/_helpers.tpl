@@ -6,6 +6,11 @@ Expand the name of the chart.
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{- define "ipfs.bootstrapper.name" -}}
+{{- $name := default .Chart.Name .Values.nameOverride -}}
+{{- printf "%s-%s" $name "bootstrapper" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{/*
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
@@ -13,6 +18,11 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- define "ipfs.fullname" -}}
 {{- $name := default .Chart.Name .Values.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "ipfs.bootstrapper.fullname" -}}
+{{- $name := default .Chart.Name .Values.nameOverride -}}
+{{- printf "%s-%s-%s" .Release.Name $name "bootstrapper" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -28,4 +38,8 @@ could just connect to it by specifying 'ipfs'.
 {{- else -}}
 {{- template "ipfs.fullname" . }}
 {{- end -}}
+{{- end -}}
+
+{{- define "ipfs.bootstrapper.servicename" -}}
+{{- template "ipfs.bootstrapper.fullname" . }}
 {{- end -}}
