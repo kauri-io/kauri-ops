@@ -8,6 +8,7 @@ metadata:
     tier: compute
 spec:
   replicas: 1
+  revisionHistoryLimit: 0
   strategy:
     type: RollingUpdate
   template:
@@ -17,7 +18,7 @@ spec:
         tier: compute
     spec:
       containers:
-      - image: kauriorg/web3auth:latest
+      - image: kauriorg/web3auth:0.0.15
         command:
           - "java"
           - "-jar"

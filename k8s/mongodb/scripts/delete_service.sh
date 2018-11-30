@@ -9,4 +9,3 @@ kubectl delete services mongo
 
 # Show persistent volume claims are still reserved even though mongod stateful-set has been undeployed
 kubectl get persistentvolumes
-

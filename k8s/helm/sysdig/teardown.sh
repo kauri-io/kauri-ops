@@ -5,7 +5,4 @@ if [ "${TARGET_ENV}" == "" ]; then
   exit 1
 fi
 
-helm delete --purge ipfs-${TARGET_ENV}
-
-# Delete persistent volume claims
-kubectl delete persistentvolumeclaims -l app=ipfs
+helm delete --purge sysdig

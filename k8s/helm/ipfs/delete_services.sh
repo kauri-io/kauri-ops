@@ -6,6 +6,3 @@ if [ "${TARGET_ENV}" == "" ]; then
 fi
 
 helm delete --purge ipfs-${TARGET_ENV}
-
-# Delete persistent volume claims
-kubectl delete persistentvolumeclaims -l app=ipfs

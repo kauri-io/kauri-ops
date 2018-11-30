@@ -42,6 +42,7 @@ kubectl create clusterrolebinding --user system:serviceaccount:kube-system:defau
 kubectl create clusterrolebinding --user system:serviceaccount:kube-system:kubernetes-dashboard kube-system-cluster-dashboard --clusterrole cluster-admin
 kubectl create clusterrolebinding --user system:serviceaccount:${TARGET_ENV}:default ${TARGET_ENV}-cluster-admin --clusterrole cluster-admin
 
+kubectl create clusterrolebinding --user system:serviceaccount:k8s-snapshots:kube-system k8s-snapshots --clusterrole cluster-admin
 print_banner 'Initialising Helm & Tiller...'
 helm init --upgrade
 

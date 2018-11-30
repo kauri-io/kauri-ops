@@ -72,7 +72,7 @@ spec:
       name: mongo-persistent-storage
       annotations:
         volume.beta.kubernetes.io/storage-class: "storageclass"
-        backup.kubernetes.io/deltas: "P1D P30D P360D"
+        backup.kubernetes.io/deltas: "P1D P7D P30D"
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:

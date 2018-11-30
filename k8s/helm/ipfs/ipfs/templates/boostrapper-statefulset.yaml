@@ -56,7 +56,7 @@ spec:
         - containerPort: 9096
           name: tcp
         volumeMounts:
-          - name: ipfs-storage
+          - name: ipfs-cluster-storage
             mountPath: /data/ipfs-cluster
 
   {{- if .Values.persistence.enabled }}
@@ -65,6 +65,20 @@ spec:
         name: ipfs-storage
         annotations:
           volume.beta.kubernetes.io/storage-class: "{{ .Values.persistence.storageClass }}"
+          backup.kubernetes.io/deltas: "{{ .Values.persistence.snapshotRules }}"
+      spec:
+        accessModes:
+          {{- range .Values.persistence.accessModes }}
+          - {{ . | quote }}
+          {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.size | quote }}
+    - metadata:
+        name: ipfs-cluster-storage
+        annotations:
+          volume.beta.kubernetes.io/storage-class: "{{ .Values.persistence.storageClass }}"
+          backup.kubernetes.io/deltas: "{{ .Values.persistence.snapshotRules }}"
       spec:
         accessModes:
           {{- range .Values.persistence.accessModes }}
@@ -76,6 +90,8 @@ spec:
   {{- else }}
       volumes:
         - name: ipfs-storage
+          emptyDir: {}
+        - name: ipfs-cluster-storage
           emptyDir: {}
   {{- end }}
 {{- end }}

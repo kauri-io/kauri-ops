@@ -1,0 +1,39 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cp-control-center
+  labels:
+    app: cp-control-center
+    tier: compute
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: cp-control-center
+        tier: compute
+    spec:
+      containers:
+      - image: confluentinc/cp-enterprise-control-center:4.0.0
+        imagePullPolicy: Always
+        name: cp-control-center
+        env:
+          - name: CONTROL_CENTER_BOOTSTRAP_SERVERS
+            value: kafka-dev2.dev2:9092
+          - name: CONTROL_CENTER_ZOOKEEPER_CONNECT
+            value: kafka-dev2-zookeeper.dev2:2181
+          - name: CONTROL_CENTER_REPLICATION_FACTOR
+            value: "1"
+          - name: CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS
+            value: "1"
+          - name: CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS
+            value: "1"
+          - name: CONFLUENT_METRICS_TOPIC_REPLICATION
+            value: "1"
+          - name: PORT
+            value: "9021"
+        ports:
+        - containerPort: 9021

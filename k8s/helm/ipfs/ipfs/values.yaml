@@ -16,6 +16,7 @@ persistence:
   ##
   # storageClass: "-"
   size: "8Gi"
+  snapshotRules: "P1D P7D P30D"
   accessModes:
     - ReadWriteOnce
 

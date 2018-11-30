@@ -8,6 +8,7 @@ metadata:
     tier: compute
 spec:
   replicas: 2
+  revisionHistoryLimit: 0
   strategy:
     type: RollingUpdate
   template:
