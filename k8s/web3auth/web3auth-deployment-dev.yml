@@ -18,7 +18,7 @@ spec:
         tier: compute
     spec:
       containers:
-      - image: kauriorg/web3auth:latest
+      - image: kauriorg/web3auth:snapshot
         command:
           - "java"
           - "-jar"
@@ -40,7 +40,7 @@ spec:
           - name: SPRING_DATA_MONGODB_HOST
             value: mongo.dev
           - name: KAFKA_ADDRESSES
-            value: kafka-dev-kafka-headless.dev:9092
+            value: kafka-dev.dev:9092
         ports:
         - containerPort: 8080
         volumeMounts:

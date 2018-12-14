@@ -1,0 +1,11 @@
+cluster:
+  env: {}
+client:
+  replicas: 1
+master:
+  replicas: 1
+data:
+  replicas: 1
+  persistence:
+    name: storage
+    storageClass: "storageclass"

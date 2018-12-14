@@ -6,5 +6,3 @@ if [ "${TARGET_ENV}" == "" ]; then
 fi
 
 helm delete --purge elastic-${TARGET_ENV}
-kubectl delete pvc -l release=elastic-${TARGET_ENV},component=data
-kubectl delete pvc -l release=elastic-${TARGET_ENV},component=master
