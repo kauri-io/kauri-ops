@@ -23,7 +23,7 @@ spec:
           - "java"
           - "-jar"
           - "app.jar"
-          - "--spring.config.location=${WEB3AUTH_CONF}"
+          - "--spring.config.additional-location=${WEB3AUTH_CONF}"
         imagePullPolicy: Always
         name: web3-auth
         env:
