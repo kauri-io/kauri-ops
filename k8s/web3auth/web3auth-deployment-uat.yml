@@ -18,12 +18,12 @@ spec:
         tier: compute
     spec:
       containers:
-      - image: kauriorg/web3auth:0.0.15
+      - image: kauriorg/web3auth:0.0.16
         command:
           - "java"
           - "-jar"
           - "app.jar"
-          - "--spring.config.location=${WEB3AUTH_CONF}"
+          - "--spring.config.additional-location=${WEB3AUTH_CONF}"
         imagePullPolicy: Always
         name: web3-auth
         env:
@@ -44,7 +44,7 @@ spec:
           - name: LOG_LEVEL
             value: TRACE
           - name: KAFKA_ADDRESSES
-            value: kafka-uat-kafka-headless.uat:9092
+            value: kafka-uat.uat:9092
         ports:
         - containerPort: 8080
         volumeMounts:

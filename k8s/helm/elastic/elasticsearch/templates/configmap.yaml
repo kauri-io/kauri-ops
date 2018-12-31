@@ -10,7 +10,7 @@ metadata:
 data:
   elasticsearch.yml: |-
     cluster.name: {{ .Values.cluster.name }}
-    reindex.remote.whitelist: elasticsearch.dev2:9200
+    reindex.remote.whitelist: elastic-uat-elasticsearch-client.uat:9200
     node.data: ${NODE_DATA:true}
     node.master: ${NODE_MASTER:true}
 {{- if hasPrefix "5." .Values.appVersion }}
