@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  name: elastic-ingress
+  namespace: uat
+spec:
+  tls:
+  - hosts:
+    - elastic.beta.kauri.io
+    secretName: uat-elastic-tls
+  rules:
+    - host: elastic.beta.kauri.io
+      http:
+        paths:
+          - backend:
+              serviceName: elastic-uat-elasticsearch-client
+              servicePort: 9200
+            path: /
