@@ -18,7 +18,7 @@ spec:
         tier: compute
     spec:
       containers:
-      - image: kauriorg/web3auth:snapshot
+      - image: kauriorg/web3auth:0.0.16
         command:
           - "java"
           - "-jar"
