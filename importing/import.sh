@@ -29,7 +29,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ "${inputenv}" == "" || "${targetenv}" == "" ]]; then
-  echo "please set -inputenv and targetenv"
+  echo "please set -inputenv and -targetenv"
   exit 1
 fi
 
