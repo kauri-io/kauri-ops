@@ -34,9 +34,9 @@ spec:
           - name: KAURI_USVC_URL
             value: monolith.uat:8081
           - name: DOMAIN_NAME
-            value: ".beta.kauri.io"
+            value: ".kauri.io"
           - name: CORS_ORIGIN
-            value: "http://localhost:3000,https://dev.kauri.io,https://dev2.kauri.io,https://beta.kauri.io,https://admin.kauri.io"
+            value: "http://localhost:3000,https://dev.kauri.io,https://dev2.kauri.io,https://kauri.io,https://beta.kauri.io,https://admin.kauri.io"
           - name: SPRING_DATA_MONGODB_HOST
             value: mongo.uat
           - name: SPRING_DATA_MONGODB_DATABASE
