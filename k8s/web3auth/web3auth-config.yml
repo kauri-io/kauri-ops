@@ -40,6 +40,4 @@ data:
         headers: "${CORS_HEADERS:Access-Control-Allow-Headers,Origin,X-Requested-With,Content-Type,Accept,X-Auth-Token}"
         credentials: "${CORS_CREDENTIALS:true}"
       mongodb:
-        host: ${SPRING_DATA_MONGODB_HOST:localhost}
-        port: ${SPRING_DATA_MONGODB_PORT:27017}
-        database: ${SPRING_DATA_MONGODB_DATABASE:web3auth}
+        uri: ${SPRING_DATA_MONGODB_URI:#{mongodb://localhost:27017}}
