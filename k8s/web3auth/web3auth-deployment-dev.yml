@@ -36,7 +36,7 @@ spec:
           - name: DOMAIN_NAME
             value: ".dev.kauri.io"
           - name: CORS_ORIGIN
-            value: "http://localhost:3000,https://dev.kauri.io,https://dev2.kauri.io,https://beta.kauri.io,https://admin.kauri.io"
+            value: "http://localhost:3000,http://192.168.1.13:3000,https://dev.kauri.io,https://dev2.kauri.io,https://beta.kauri.io,https://admin.kauri.io"
           - name: SPRING_DATA_MONGODB_URI
             value: mongodb://mongo-0.mongo.dev.svc.cluster.local:27017/web3auth
           - name: KAFKA_ADDRESSES

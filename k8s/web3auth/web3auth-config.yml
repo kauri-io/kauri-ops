@@ -41,3 +41,4 @@ data:
         credentials: "${CORS_CREDENTIALS:true}"
       mongodb:
         uri: ${SPRING_DATA_MONGODB_URI:#{mongodb://localhost:27017}}
+        database: ${SPRING_DATA_MONGODB_DATABASE:web3auth}
