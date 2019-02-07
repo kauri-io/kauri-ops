@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - api.kauri.io
-    secretName: uat-web3uth-tls
+    secretName: uat-web3uth-tls-new
   rules:
     - host: api.kauri.io
       http:
