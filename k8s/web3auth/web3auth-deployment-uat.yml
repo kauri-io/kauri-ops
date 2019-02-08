@@ -7,7 +7,7 @@ metadata:
     app: web3-auth
     tier: compute
 spec:
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 0
   strategy:
     type: RollingUpdate
@@ -18,12 +18,12 @@ spec:
         tier: compute
     spec:
       containers:
-      - image: kauriorg/web3auth:0.0.15
+      - image: kauriorg/web3auth:0.0.17
         command:
           - "java"
           - "-jar"
           - "app.jar"
-          - "--spring.config.location=${WEB3AUTH_CONF}"
+          - "--spring.config.additional-location=${WEB3AUTH_CONF}"
         imagePullPolicy: Always
         name: web3-auth
         env:
@@ -34,17 +34,15 @@ spec:
           - name: KAURI_USVC_URL
             value: monolith.uat:8081
           - name: DOMAIN_NAME
-            value: ".beta.kauri.io"
+            value: ".kauri.io"
           - name: CORS_ORIGIN
-            value: "http://localhost:3000,https://dev.kauri.io,https://dev2.kauri.io,https://beta.kauri.io,https://admin.kauri.io"
-          - name: SPRING_DATA_MONGODB_HOST
-            value: mongo.uat
-          - name: SPRING_DATA_MONGODB_DATABASE
-            value: test
+            value: "http://localhost:3000,https://dev.kauri.io,https://dev2.kauri.io,https://kauri.io,https://beta.kauri.io,https://admin.kauri.io"
+          - name: SPRING_DATA_MONGODB_URI
+            value: mongodb://mongo-0.mongo.uat.svc.cluster.local:27017,mongo-1.mongo.uat.svc.cluster.local:27017,mongo-2.mongo.uat.svc.cluster.local:27017/web3auth?replicaSet=rs0
           - name: LOG_LEVEL
             value: TRACE
           - name: KAFKA_ADDRESSES
-            value: kafka-uat-kafka-headless.uat:9092
+            value: kafka-uat.uat:9092
         ports:
         - containerPort: 8080
         volumeMounts:

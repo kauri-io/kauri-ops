@@ -8,6 +8,11 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
   name: {{ template "elasticsearch.client.fullname" . }}
+{{- if .Values.client.serviceAnnotations }}
+  annotations:
+{{ toYaml .Values.client.serviceAnnotations | indent 4 }}
+{{- end }}
+
 spec:
   ports:
     - name: http
@@ -16,8 +21,18 @@ spec:
     - name: transport
       port: 9300
       targetPort: transport
+
   selector:
     app: {{ template "elasticsearch.name" . }}
     component: "{{ .Values.client.name }}"
     release: {{ .Release.Name }}
   type: {{ .Values.client.serviceType }}
+{{- if .Values.client.loadBalancerIP }}
+  loadBalancerIP: "{{ .Values.client.loadBalancerIP }}"
+{{- end }}
+  {{if .Values.client.loadBalancerSourceRanges}}
+  loadBalancerSourceRanges:
+    {{range $rangeList := .Values.client.loadBalancerSourceRanges}}
+    - {{ $rangeList }}
+    {{end}}
+  {{end}}

@@ -1,0 +1,8 @@
+db.articleCheckpointSummary.remove({})
+db.articleMeta.remove({})
+db.collection.remove({})
+db.comment.remove({})
+db.community.remove({})
+db.curatedList.remove({})
+db.user.remove({})
+db.vote.remove({})

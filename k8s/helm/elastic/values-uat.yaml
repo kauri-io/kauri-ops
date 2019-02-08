@@ -1,0 +1,12 @@
+cluster:
+  env: {MINIMUM_MASTER_NODES: "2"}
+client:
+  replicas: 3
+master:
+  replicas: 2
+  persistence:
+    storageClass: "storageclass"
+data:
+  replicas: 3
+  persistence:
+    storageClass: "storageclass"

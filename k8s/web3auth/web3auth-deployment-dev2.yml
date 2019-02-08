@@ -7,7 +7,7 @@ metadata:
     app: web3-auth
     tier: compute
 spec:
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 0
   strategy:
     type: RollingUpdate
@@ -18,7 +18,7 @@ spec:
         tier: compute
     spec:
       containers:
-      - image: kauriorg/web3auth:snapshot
+      - image: kauriorg/web3auth:0.0.17
         command:
           - "java"
           - "-jar"
@@ -37,8 +37,8 @@ spec:
             value: ".dev2.kauri.io"
           - name: CORS_ORIGIN
             value: "http://localhost:3000,https://dev.kauri.io,https://dev2.kauri.io,https://beta.kauri.io,https://admin.kauri.io"
-          - name: SPRING_DATA_MONGODB_HOST
-            value: mongo.dev2
+          - name: SPRING_DATA_MONGODB_URI
+            value: mongodb://mongo-0.mongo.dev2.svc.cluster.local:27017,mongo-1.mongo.dev2.svc.cluster.local:27017,mongo-2.mongo.dev2.svc.cluster.local:27017/web3auth?replicaSet=rs0
           - name: LOG_LEVEL
             value: TRACE
           - name: KAFKA_ADDRESSES
