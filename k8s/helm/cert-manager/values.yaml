@@ -1,2 +1,6 @@
+image:
+  image:
+    tag: v0.6.1
 ingressShim:
-  extraArgs: ['--default-issuer-name=letsencrypt-prod', '--default-issuer-kind=ClusterIssuer']
+  defaultIssuerName: "letsencrypt-prod"
+  defaultIssuerKind: "ClusterIssuer"
