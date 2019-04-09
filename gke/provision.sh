@@ -41,7 +41,7 @@ kubectl config set-context $(kubectl config current-context) --namespace=${TARGE
 kubectl create clusterrolebinding --user system:serviceaccount:kube-system:default kube-system-cluster-admin --clusterrole cluster-admin
 kubectl create clusterrolebinding --user system:serviceaccount:kube-system:kubernetes-dashboard kube-system-cluster-dashboard --clusterrole cluster-admin
 kubectl create clusterrolebinding --user system:serviceaccount:${TARGET_ENV}:default ${TARGET_ENV}-cluster-admin --clusterrole cluster-admin
-
+kubectl create clusterrolebinding --user system:serviceaccount:uat:cert-manager cert-manager cert-manager-cluster-admin cluster-admin
 kubectl create clusterrolebinding --user system:serviceaccount:k8s-snapshots:kube-system k8s-snapshots --clusterrole cluster-admin
 print_banner 'Initialising Helm & Tiller...'
 helm init --upgrade

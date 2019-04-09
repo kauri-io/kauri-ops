@@ -43,13 +43,15 @@ echo "##########################################################################
 echo "Openning tunnel for mongodb in input env: $inputenv"
 echo "##############################################################################################"
 kubectl port-forward mongo-0 27017:27017 &
+kubectl port-forward mongo-1 27018:27017 &
+kubectl port-forward mongo-2 27019:27017 &
 sleep 30
 echo "##############################################################################################"
 echo "Exporting mongo collections from env: $inputenv"
 echo "##############################################################################################"
 for COLLECTION in articleCheckpointSummary articleMeta collection comment community curatedList user vote
 do
-  mongoexport -c $COLLECTION --out $COLLECTION.file
+  mongoexport --uri "mongodb://127.0.0.1:27017,127.0.0.1:27018,127.0.0.1:27019/test?replicaSet=rs0" -c $COLLECTION --out $COLLECTION.file
 done
 killall -9 kubectl
 echo "##############################################################################################"
@@ -64,6 +66,8 @@ echo "##########################################################################
 echo "Openning tunnel for mongodb in target env: $targetenv"
 echo "##############################################################################################"
 kubectl port-forward mongo-0 27017:27017 &
+kubectl port-forward mongo-1 27018:27017 &
+kubectl port-forward mongo-2 27019:27017 &
 sleep 30
 echo "##############################################################################################"
 echo "Running db cleanup in target env: $targetenv"
@@ -74,7 +78,7 @@ echo "Importing db data in target env: $targetenv"
 echo "##############################################################################################"
 for COLLECTION in articleCheckpointSummary articleMeta collection comment community curatedList user vote
 do
-  mongoimport -c $COLLECTION --file $COLLECTION.file
+  mongoimport --uri "mongodb://127.0.0.1:27017,127.0.0.1:27018,127.0.0.1:27019/test?replicaSet=rs0" -c $COLLECTION --file $COLLECTION.file
   rm $COLLECTION.file
 done
 killall -9 kubectl

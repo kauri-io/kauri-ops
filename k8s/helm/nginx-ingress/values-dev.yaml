@@ -1,0 +1,2 @@
+controller:
+  config: {http-redirect-code: "301"}
