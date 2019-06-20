@@ -5,6 +5,6 @@ persistence:
 ipfscluster:
   image: ipfs/ipfs-cluster:v0.7.0
   enabled: true
-  bootstrapperIP: 10.11.252.215
-  bootstrapperPeerId: QmWoHdQaAZ2hQ5iC6gQYULYoNFTAF6bc5Dz7LmESNqmN4f
+  bootstrapperIP: 10.11.251.14
+  bootstrapperPeerId: QmRMpnThYsHz4mqFdkHcC1skXEKZvdRNqSY4zQg5UtYsz9
   secret: 1aebe6d1ff52d96241e00d1abbd1be0743e3ccd0e3f8a05e3c8dd2bbbddb7b93

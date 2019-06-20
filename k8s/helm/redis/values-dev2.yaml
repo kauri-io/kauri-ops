@@ -1,0 +1,9 @@
+image:
+  registry: docker.io
+  repository: bitnami/redis
+  tag: 4.0.14
+  pullPolicy: IfNotPresent
+
+cluster:
+  enabled: true
+  slaveCount: 3

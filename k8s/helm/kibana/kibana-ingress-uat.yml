@@ -11,13 +11,13 @@ metadata:
 spec:
   tls:
   - hosts:
-    - kibana.rinkeby.kauri.io
+    - kibana.kauri.io
     secretName: uat-kibana-tls
   rules:
-    - host: kibana.rinkeby.kauri.io
+    - host: kibana.kauri.io
       http:
         paths:
           - backend:
-              serviceName: kibana-uat-kibana
+              serviceName: kibana-uat
               servicePort: 443
             path: /
