@@ -17,7 +17,7 @@ spec:
         tier: compute
     spec:
       containers:
-      - image: confluentinc/cp-enterprise-control-center:4.0.0
+      - image: confluentinc/cp-enterprise-control-center:5.0.0
         imagePullPolicy: Always
         name: cp-control-center
         env:
