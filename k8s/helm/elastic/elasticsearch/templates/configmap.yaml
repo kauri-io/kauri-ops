@@ -10,7 +10,7 @@ metadata:
 data:
   elasticsearch.yml: |-
     cluster.name: {{ .Values.cluster.name }}
-    reindex.remote.whitelist: elastic.beta.kauri.io:443, elastic.dev.kauri.io:443, elastic.dev2.kauri.io:443
+    reindex.remote.whitelist: elastic.kauri.io:443, elastic.dev.kauri.io:443, elastic.dev2.kauri.io:443
     node.data: ${NODE_DATA:true}
     node.master: ${NODE_MASTER:true}
 {{- if hasPrefix "5." .Values.appVersion }}

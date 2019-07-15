@@ -1,10 +1,10 @@
 replicaCount: 2
-image: ipfs/go-ipfs:v0.4.18
+image: ipfs/go-ipfs:v0.4.20
 persistence:
   storageClass: "storageclass"
 ipfscluster:
-  image: ipfs/ipfs-cluster:v0.7.0
+  image: ipfs/ipfs-cluster:v0.10.1
   enabled: true
-  bootstrapperIP: 10.39.247.199
-  bootstrapperPeerId: Qmd2bhFKYi6NGngRXA3Rr3i7vy4e54MANHcJkwT5ycWcWM
+  bootstrapperIP: 10.39.241.235
+  bootstrapperPeerId: QmQC2zbCViFzRcDMzPBJYgkiFeBbbcgGyKZKoj6uJt9yPU
   secret: 1aebe6d1ff52d96241e00d1abbd1be0743e3ccd0e3f8a05e3c8dd2bbbddb7b93

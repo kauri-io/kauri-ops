@@ -49,7 +49,7 @@ sleep 30
 echo "##############################################################################################"
 echo "Exporting mongo collections from env: $inputenv"
 echo "##############################################################################################"
-for COLLECTION in articleCheckpointSummary articleMeta collection comment community curatedList user vote
+for COLLECTION in articleCheckpointSummary articleMeta articleLock articleTransfer homepageDescriptor collection comment community curatedList user vote view
 do
   mongoexport --uri "mongodb://127.0.0.1:27017,127.0.0.1:27018,127.0.0.1:27019/test?replicaSet=rs0" -c $COLLECTION --out $COLLECTION.file
 done
@@ -76,7 +76,7 @@ mongo < importing/cleandb.js
 echo "##############################################################################################"
 echo "Importing db data in target env: $targetenv"
 echo "##############################################################################################"
-for COLLECTION in articleCheckpointSummary articleMeta collection comment community curatedList user vote
+for COLLECTION in articleCheckpointSummary articleMeta articleLock articleTransfer homepageDescriptor collection comment community curatedList user vote view
 do
   mongoimport --uri "mongodb://127.0.0.1:27017,127.0.0.1:27018,127.0.0.1:27019/test?replicaSet=rs0" -c $COLLECTION --file $COLLECTION.file
   rm $COLLECTION.file
@@ -103,13 +103,13 @@ done
 echo "##############################################################################################"
 echo "Importing elasticsearch data in target env: $targetenv"
 echo "##############################################################################################"
-for INDEX in article community global checkpoint
+for INDEX in article global checkpoint
 do
   curl -X POST "localhost:9200/_reindex" -H 'Content-Type: application/json' -d'
   {
     "source": {
       "remote": {
-        "host": "https://elastic.beta.kauri.io:443"
+        "host": "https://elastic.kauri.io:443"
       },
       "index": "'${INDEX}'"
     },
