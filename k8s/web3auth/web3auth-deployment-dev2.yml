@@ -18,11 +18,20 @@ spec:
         tier: compute
     spec:
       containers:
-      - image: kauriorg/web3auth:0.0.23
+      - image: kauriorg/web3auth:0.0.24
         command:
           - "java"
+          - "-javaagent:/apm-agent.jar"
+          - "-Delastic.apm.server_urls=$(ELASTIC_APM_SERVER)"
+          - "-Delastic.apm.service_name=web3auth"
+          - "-Delastic.apm.service_version=0.0.24"
+          - "-Delastic.apm.transaction_sample_rate=0.5"
+          - "-Delastic.apm.transaction_max_spans=50"
+          - "-Delastic.apm.trace_methods=net.consensys.web3auth.*Controller,net.consensys.web3auth.*Service*"
+          - "-Delastic.apm.application_packages=net.consensys.web3auth"
+          - "-Djava.security.egd=file:/dev/./urandom"
           - "-jar"
-          - "app.jar"
+          - "/app.jar"
           - "--spring.config.additional-location=${WEB3AUTH_CONF}"
         imagePullPolicy: Always
         name: web3-auth

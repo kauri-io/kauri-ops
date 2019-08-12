@@ -1,2 +1,4 @@
 controller:
   config: {http-redirect-code: "301"}
+  stats:
+    enabled: true
