@@ -1,0 +1,13 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: dev
+  name: kibana-ext
+spec:
+ type: ExternalName
+ externalName: kibana.monitoring.svc.cluster.local
+ ports:
+ - port: 5601
+   name: webinterface
+---   
