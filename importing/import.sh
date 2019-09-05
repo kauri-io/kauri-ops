@@ -81,6 +81,14 @@ do
   mongoimport --uri "mongodb://127.0.0.1:27017,127.0.0.1:27018,127.0.0.1:27019/test?replicaSet=rs0" -c $COLLECTION --file $COLLECTION.file
   rm $COLLECTION.file
 done
+
+if [ "$targetenv" == "dev" -o "$targetenv" == "dev2" ]; then
+  echo "##############################################################################################"
+  echo "Running email converter to dispostable email service in target env: $targetenv"
+  echo "##############################################################################################"
+  mongo < importing/convert_email_to_dispostable.js
+fi
+
 killall -9 kubectl
 echo "##############################################################################################"
 echo "Openning tunnel for elasticsearch in target env: $targetenv"
