@@ -88,8 +88,6 @@ spec:
           value: "5601"
         - name: KIBANA_PATH
           value: /monitoring/ui
-        - name: BASE_PATH
-          value: /monitoring/apm-server
         ports:
         - containerPort: 8200
           name: apm-server
