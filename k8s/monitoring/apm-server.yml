@@ -11,6 +11,17 @@ data:
     apm-server:
       host: "0.0.0.0:8200"
 
+      rum:
+        enabled: true
+        event_rate.limit: 300
+        event_rate.lru_size: 1000
+        allow_origins: ['*']
+        library_pattern: "node_modules|bower_components|~"
+        exclude_from_grouping: "^/webpack"
+        source_mapping.enabled: true
+        source_mapping.cache.expiration: 5m
+        source_mapping.index_pattern: "apm-*-sourcemap*"
+
       frontend:
         enabled: false
 
@@ -76,7 +87,9 @@ spec:
         - name: KIBANA_PORT
           value: "5601"
         - name: KIBANA_PATH
-          value: /monitoring
+          value: /monitoring/ui
+        - name: BASE_PATH
+          value: /monitoring/apm-server
         ports:
         - containerPort: 8200
           name: apm-server

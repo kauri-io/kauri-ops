@@ -83,9 +83,8 @@ echo
 echo '# Install Kibana'
 
 kubectl apply -f ./kibana.yml
-kubectl apply -f ./kibana-ext.${TARGET_ENV}.yml
 
-waitForServiceCurl Kibana kibana "http://localhost:5601/monitoring"
+waitForServiceCurl Kibana kibana "http://localhost:5601/monitoring/ui"
 
 
 ##########################################
@@ -113,3 +112,11 @@ echo '# Install Metricbeat'
 
 kubectl apply -f ./kube-state-metrics.yml
 kubectl apply -f ./metricbeat.yml
+
+
+##########################################
+# 7. METRICBEAT
+echo
+echo '# Extra configuration'
+
+kubectl apply -f ./monitoring.env.${TARGET_ENV}.yml

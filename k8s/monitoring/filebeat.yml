@@ -8,15 +8,6 @@ metadata:
     app: filebeat
 data:
   filebeat.yml: |-
-    setup.dashboards.enabled: true
-    setup.template.enabled: true
-
-    setup.template.settings:
-      index.number_of_shards: 1
-
-    setup.ilm:
-      policy_file: /etc/indice-lifecycle.json
-
     filebeat.inputs:
     - type: container
       paths:
@@ -33,10 +24,8 @@ data:
       - module: system
         syslog:
           enabled: true
-          #var.paths: ["/var/log/syslog"]
         auth:
           enabled: true
-          #var.paths: ["/var/log/authlog"]
 
     filebeat.autodiscover:
       providers:
@@ -86,6 +75,7 @@ data:
                       type: docker
                       containers.ids:
                         - ${data.kubernetes.container.id}
+
     processors:
       - drop_event:
           when.or:
@@ -112,6 +102,12 @@ data:
     setup.kibana:
       host: '${KIBANA_HOST:kibana}:${KIBANA_PORT:5601}'
       path: ${KIBANA_PATH}
+
+    setup.dashboards.enabled: true
+    setup.template.enabled: true
+
+    setup.ilm:
+      policy_file: /etc/indice-lifecycle.json
 
   indice-lifecycle.json: |-
     {
@@ -174,15 +170,13 @@ spec:
         - name: KIBANA_PORT
           value: "5601"
         - name: KIBANA_PATH
-          value: /monitoring
+          value: /monitoring/ui
         - name: NODE_NAME
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
         securityContext:
           runAsUser: 0
-          # If using Red Hat OpenShift uncomment this:
-          #privileged: true
         resources:
           limits:
             memory: 200Mi
