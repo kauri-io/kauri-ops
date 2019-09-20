@@ -46,6 +46,8 @@ spec:
             value: ".kauri.io"
           - name: CORS_ORIGIN
             value: "http://localhost:3000,https://.*.kauri.io,https://.*.kauri.*.now.sh"
+          - name: CORS_HEADERS
+            value: "Access-Control-Allow-Headers,Origin,X-Requested-With,Content-Type,Accept,X-Auth-Token,elastic-apm-traceparent"
           - name: SPRING_DATA_MONGODB_URI
             value: mongodb://mongo-0.mongo.uat.svc.cluster.local:27017,mongo-1.mongo.uat.svc.cluster.local:27017,mongo-2.mongo.uat.svc.cluster.local:27017/web3auth?replicaSet=rs0
           - name: LOG_LEVEL

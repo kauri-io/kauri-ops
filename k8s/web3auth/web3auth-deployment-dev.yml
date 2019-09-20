@@ -46,6 +46,8 @@ spec:
             value: ".dev.kauri.io"
           - name: CORS_ORIGIN
             value: "http://localhost:3000,http://192.168.1.13:3000,https://.*.kauri.io,https://.*.kauri.*.now.sh"
+          - name: CORS_HEADERS
+            value: "Access-Control-Allow-Headers,Origin,X-Requested-With,Content-Type,Accept,X-Auth-Token,elastic-apm-traceparent"
           - name: SPRING_DATA_MONGODB_URI
             value: mongodb://mongo-0.mongo.dev.svc.cluster.local:27017/web3auth
           - name: KAFKA_ADDRESSES
