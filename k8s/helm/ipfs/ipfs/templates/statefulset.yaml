@@ -26,6 +26,9 @@ spec:
       containers:
       - name: {{ .Chart.Name }}
         image: {{ .Values.image }}
+        resources:
+          requests:
+          memory: 1024Mi
         env:
           - name: USE_CLAIM_NAME
             value: "true"

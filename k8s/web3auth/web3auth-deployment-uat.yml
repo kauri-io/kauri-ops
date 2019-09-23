@@ -18,11 +18,20 @@ spec:
         tier: compute
     spec:
       containers:
-      - image: kauriorg/web3auth:0.0.17
+      - image: kauriorg/web3auth:0.0.24
         command:
           - "java"
+          - "-javaagent:/apm-agent.jar"
+          - "-Delastic.apm.server_urls=$(ELASTIC_APM_SERVER)"
+          - "-Delastic.apm.service_name=web3auth"
+          - "-Delastic.apm.service_version=0.0.24"
+          - "-Delastic.apm.transaction_sample_rate=0.5"
+          - "-Delastic.apm.transaction_max_spans=50"
+          - "-Delastic.apm.trace_methods=net.consensys.web3auth.*Controller,net.consensys.web3auth.*Service*"
+          - "-Delastic.apm.application_packages=net.consensys.web3auth"
+          - "-Djava.security.egd=file:/dev/./urandom"
           - "-jar"
-          - "app.jar"
+          - "/app.jar"
           - "--spring.config.additional-location=${WEB3AUTH_CONF}"
         imagePullPolicy: Always
         name: web3-auth
@@ -36,7 +45,9 @@ spec:
           - name: DOMAIN_NAME
             value: ".kauri.io"
           - name: CORS_ORIGIN
-            value: "http://localhost:3000,https://dev.kauri.io,https://dev2.kauri.io,https://kauri.io,https://beta.kauri.io,https://admin.kauri.io"
+            value: "http://localhost:3000,https://.*.kauri.io,https://.*.kauri.*.now.sh"
+          - name: CORS_HEADERS
+            value: "Access-Control-Allow-Headers,Origin,X-Requested-With,Content-Type,Accept,X-Auth-Token,elastic-apm-traceparent"
           - name: SPRING_DATA_MONGODB_URI
             value: mongodb://mongo-0.mongo.uat.svc.cluster.local:27017,mongo-1.mongo.uat.svc.cluster.local:27017,mongo-2.mongo.uat.svc.cluster.local:27017/web3auth?replicaSet=rs0
           - name: LOG_LEVEL

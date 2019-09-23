@@ -1,2 +1,6 @@
 controller:
   config: {http-redirect-code: "301"}
+  service:
+    externalTrafficPolicy: Local
+  stats:
+    enabled: true

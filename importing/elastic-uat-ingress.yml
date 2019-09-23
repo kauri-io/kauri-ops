@@ -9,10 +9,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - elastic.beta.kauri.io
-    secretName: uat-elastic-tls
+    - elastic.kauri.io
+    secretName: uat-elastic-tls-new
   rules:
-    - host: elastic.beta.kauri.io
+    - host: elastic.kauri.io
       http:
         paths:
           - backend:
