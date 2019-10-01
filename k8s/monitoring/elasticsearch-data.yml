@@ -49,10 +49,14 @@ metadata:
 spec:
   serviceName: "elasticsearch-data"
   replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+      role: data
   template:
     metadata:
       labels:
-        app: elasticsearch-data
+        app: elasticsearch
         role: data
     spec:
       containers:
@@ -85,6 +89,16 @@ spec:
       - name: config
         configMap:
           name: elasticsearch-data-config
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - elasticsearch
+            topologyKey: "kubernetes.io/hostname"
   volumeClaimTemplates:
   - metadata:
       name: elasticsearch-data-persistent-storage

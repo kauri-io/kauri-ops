@@ -95,4 +95,14 @@ spec:
       - name: "storage"
         emptyDir:
           medium: ""
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - elasticsearch
+            topologyKey: "kubernetes.io/hostname"
 ---

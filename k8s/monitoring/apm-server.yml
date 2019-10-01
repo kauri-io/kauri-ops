@@ -100,4 +100,18 @@ spec:
       - name: config
         configMap:
           name: apm-server-config
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - elasticsearch
+              - key: role
+                operator: In
+                values:
+                - master
+            topologyKey: "kubernetes.io/hostname"
 ---

@@ -80,4 +80,18 @@ spec:
       - name: config
         configMap:
           name: kibana-config
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - elasticsearch
+              - key: role
+                operator: In
+                values:
+                - client
+            topologyKey: "kubernetes.io/hostname"
 ---
