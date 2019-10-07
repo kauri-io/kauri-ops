@@ -26,6 +26,11 @@ spec:
       containers:
       - name: {{ .Chart.Name }}
         image: {{ .Values.image }}
+        command: ["/sbin/tini", "--"]
+        args:
+          - "/bin/entrypoint.sh"
+          - daemon
+          - --migrate=true
         resources:
           requests:
           memory: 1024Mi
@@ -33,6 +38,9 @@ spec:
           - name: USE_CLAIM_NAME
             value: "true"
         ports:
+        - containerPort: {{ .Values.swarmPort }}
+          protocol: TCP
+          name: swarm
         - containerPort: 5001
           name: api
         - containerPort: 8080
@@ -40,6 +48,10 @@ spec:
         volumeMounts:
           - name: ipfs-storage
             mountPath: /data/ipfs
+          - name: configmap-volume
+            mountPath: /bin/entrypoint.sh
+            readOnly: true
+            subPath: entrypoint.sh
       {{- if .Values.ipfscluster.enabled }}
       - name: cluster-{{ .Chart.Name }}
         image: {{ .Values.ipfscluster.image }}
@@ -80,7 +92,11 @@ spec:
           - name: ipfs-cluster-storage
             mountPath: /data/ipfs-cluster
       {{- end }}
-
+      volumes:
+        - name: configmap-volume
+          configMap:
+            defaultMode: 0777
+            name: {{ template "ipfs.fullname" . }}-ipfs-config
   {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
     - metadata:
@@ -113,6 +129,10 @@ spec:
     {{- end }}
   {{- else }}
       volumes:
+        - name: configmap-volume
+          configMap:
+            defaultMode: 0700
+            name: {{ template "ipfs.fullname" . }}-ipfs-config
         - name: ipfs-storage
           emptyDir: {}
         {{- if .Values.ipfscluster.enabled }}

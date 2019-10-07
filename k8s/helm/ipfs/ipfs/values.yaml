@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image: ipfs/go-ipfs:v0.4.9
-
+swarmPort: 30036
 service:
-  type: ClusterIP
+  type: NodePort
 
 persistence:
   enabled: true

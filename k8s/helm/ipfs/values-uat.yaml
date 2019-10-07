@@ -1,5 +1,6 @@
 replicaCount: 2
 image: ipfs/go-ipfs:v0.4.20
+swarmPort: 30036
 persistence:
   storageClass: "storageclass"
 ipfscluster:
