@@ -23,6 +23,16 @@ spec:
         # the persistent volume to be able to start.
         #fsGroup: 1000
         #runAsUser: 1000
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - ipfs
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: {{ .Chart.Name }}
         image: {{ .Values.image }}

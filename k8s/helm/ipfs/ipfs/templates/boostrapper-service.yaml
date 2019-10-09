@@ -18,12 +18,6 @@ spec:
   - port: 8080
     targetPort: 8080
     name: gateway
-  - name: swarm
-    protocol: TCP
-    containerPort: 4001
-  - name: swarm-udp
-    protocol: UDP
-    containerPort: 4002
   {{- if .Values.ipfscluster.enabled }}
   - port: 9094
     targetPort: 9094

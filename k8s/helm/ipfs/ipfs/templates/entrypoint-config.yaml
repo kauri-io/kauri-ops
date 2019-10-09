@@ -65,5 +65,7 @@ data:
       unset IPFS_SWARM_KEY_FILE
 
     fi
-
+    wget -O $repo/externalIP ipecho.net/plain
+    EXTERNAL_IP=$(cat $repo/externalIP)
+    ipfs config Addresses.Announce --json "[\"/ip4/$EXTERNAL_IP/tcp/{{ .Values.swarmPort }}\"]"
     exec ipfs "$@"
