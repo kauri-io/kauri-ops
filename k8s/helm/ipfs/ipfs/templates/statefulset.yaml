@@ -48,7 +48,7 @@ spec:
           - name: USE_CLAIM_NAME
             value: "true"
         ports:
-        - containerPort: {{ .Values.swarmPort }}
+        - containerPort: {{ .Values.swarm.port }}
           protocol: TCP
           name: swarm
         - containerPort: 5001
