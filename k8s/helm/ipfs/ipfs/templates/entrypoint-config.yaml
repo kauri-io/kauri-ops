@@ -67,6 +67,10 @@ data:
     wget -O $repo/externalIP ipecho.net/plain
     EXTERNAL_IP=$(cat $repo/externalIP)
 
+    if [ -e "$repo/api" ]; then
+      rm $repo/api
+    fi
+
     ipfs config Addresses.Swarm --json "[\"/ip4/0.0.0.0/tcp/{{ .Values.swarm.port }}\", \"/ip6/::/tcp/{{ .Values.swarm.port }}\"]"
     ipfs config Addresses.Announce --json "[\"/ip4/$EXTERNAL_IP/tcp/{{ .Values.swarm.port }}\"]"
     ipfs config Swarm.ConnMgr.LowWater --json {{ .Values.swarm.minConnection }}
