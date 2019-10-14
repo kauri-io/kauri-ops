@@ -75,13 +75,13 @@ data:
     ipfs config Addresses.Announce --json "[\"/ip4/$EXTERNAL_IP/tcp/{{ .Values.swarm.port }}\"]"
     ipfs config Swarm.ConnMgr.LowWater --json {{ .Values.swarm.minConnection }}
     ipfs config Swarm.ConnMgr.HighWater --json {{ .Values.swarm.maxConnection }}
-    ipfs config Swarm.ConnMgr.GracePeriod --json {{ .Values.swarm.gracePeriod }}
+    ipfs config Swarm.ConnMgr.GracePeriod {{ .Values.swarm.gracePeriod }}
     ipfs config Swarm.DisableBandwidthMetrics --json {{ .Values.swarm.disableBandwidthMetrics }}
     ipfs config Swarm.DisableNatPortMap --json {{ .Values.swarm.disableNatPortMap }}
-    ipfs config Swarm.DisableRelay --json {{ .Values.swarm.gracePeriod }}
+    ipfs config Swarm.DisableRelay --json {{ .Values.swarm.disableRelay }}
     ipfs config Swarm.EnableAutoNATService --json {{ .Values.swarm.enableAutoNATService }}
     ipfs config Swarm.EnableAutoRelay --json {{ .Values.swarm.enableAutoRelay }}
     ipfs config Swarm.EnableRelayHop --json {{ .Values.swarm.enableRelayHop }}
-    ipfs config Routing.type --json {{ .Values.routing.type }}
+    ipfs config Routing.Type {{ .Values.routing.type }}
 
     exec ipfs "$@"

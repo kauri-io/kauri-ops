@@ -4,7 +4,7 @@ swarm:
   port: 30036
   minConnection: 200
   maxConnection: 300
-  gracePeriod: 60s
+  gracePeriod: "60s"
   disableBandwidthMetrics: "true"
   disableNatPortMap: "true"
   disableRelay: "false"
@@ -12,7 +12,7 @@ swarm:
   enableAutoRelay: "false"
   enableRelayHop: "false"
 routing:
-  type: dhtclient
+  type: "dhtclient"
 persistence:
   storageClass: "storageclass"
 ipfscluster:

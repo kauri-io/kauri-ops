@@ -6,7 +6,7 @@ swarm:
   port: 30036
   minConnection: 600
   maxConnection: 900
-  gracePeriod: 20s
+  gracePeriod: "20s"
   disableBandwidthMetrics: "false"
   disableNatPortMap: "false"
   disableRelay: "false"
