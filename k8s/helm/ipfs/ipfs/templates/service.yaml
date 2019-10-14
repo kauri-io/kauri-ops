@@ -10,9 +10,9 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-  - port: {{ .Values.swarmPort }}
-    nodePort: {{ .Values.swarmPort }}
-    targetPort: {{ .Values.swarmPort }}
+  - port: {{ .Values.swarm.port }}
+    nodePort: {{ .Values.swarm.port }}
+    targetPort: {{ .Values.swarm.port }}
     protocol: TCP
     name: swarm
   - port: 5001

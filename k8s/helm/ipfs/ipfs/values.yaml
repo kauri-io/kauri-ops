@@ -1,9 +1,22 @@
 replicaCount: 1
 
 image: ipfs/go-ipfs:v0.4.9
-swarmPort: 30036
-swarmMinConnection: 100
-swarmMaxConnection: 300
+
+swarm:
+  port: 30036
+  minConnection: 600
+  maxConnection: 900
+  gracePeriod: 20s
+  disableBandwidthMetrics: "false"
+  disableNatPortMap: "false"
+  disableRelay: "false"
+  enableAutoNATService: "false"
+  enableAutoRelay: "false"
+  enableRelayHop: "false"
+
+routing:
+  type: dht
+
 service:
   type: NodePort
 
