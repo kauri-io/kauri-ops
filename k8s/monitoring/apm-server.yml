@@ -72,7 +72,7 @@ spec:
         image: docker.elastic.co/apm/apm-server:7.3.0
         env:
         - name: ELASTICSEARCH_HOST
-          value: elasticsearch-client.monitoring.svc.cluster.local
+          value: elasticsearch.monitoring.svc.cluster.local
         - name: ELASTICSEARCH_PORT
           value: "9200"
         - name: ELASTICSEARCH_USERNAME
@@ -100,4 +100,15 @@ spec:
       - name: config
         configMap:
           name: apm-server-config
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - kibana
+                - elasticsearch
+            topologyKey: "kubernetes.io/hostname"
 ---

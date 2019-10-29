@@ -1,10 +1,23 @@
 replicaCount: 2
 image: ipfs/go-ipfs:v0.4.20
+swarm:
+  port: 30036
+  minConnection: 200
+  maxConnection: 300
+  gracePeriod: "60s"
+  disableBandwidthMetrics: "true"
+  disableNatPortMap: "true"
+  disableRelay: "false"
+  enableAutoNATService: "false"
+  enableAutoRelay: "false"
+  enableRelayHop: "false"
+routing:
+  type: "dhtclient"
 persistence:
   storageClass: "storageclass"
 ipfscluster:
   image: ipfs/ipfs-cluster:v0.10.1
   enabled: true
-  bootstrapperIP: 10.39.241.235
-  bootstrapperPeerId: QmQC2zbCViFzRcDMzPBJYgkiFeBbbcgGyKZKoj6uJt9yPU
+  bootstrapperIP: 10.39.254.242
+  bootstrapperPeerId: QmcJ6RQAE6kr6SoTMz6fKrU7L6MT6jkKhnFN5JLErKwjjE
   secret: 1aebe6d1ff52d96241e00d1abbd1be0743e3ccd0e3f8a05e3c8dd2bbbddb7b93

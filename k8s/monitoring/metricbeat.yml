@@ -161,7 +161,7 @@ spec:
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          value: elasticsearch-client.monitoring.svc.cluster.local
+          value: elasticsearch.monitoring.svc.cluster.local
         - name: ELASTICSEARCH_PORT
           value: "9200"
         - name: ELASTICSEARCH_USERNAME

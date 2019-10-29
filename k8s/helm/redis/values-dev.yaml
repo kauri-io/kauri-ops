@@ -6,3 +6,6 @@ image:
 
 cluster:
   enabled: false
+
+master:
+  disableCommands:

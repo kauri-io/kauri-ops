@@ -59,7 +59,7 @@ spec:
           name: webinterface
         env:
         - name: ELASTICSEARCH_HOSTS
-          value: "http://elasticsearch-client.monitoring.svc.cluster.local:9200"
+          value: "http://elasticsearch.monitoring.svc.cluster.local:9200"
         - name: ELASTICSEARCH_USER
           value: "elastic"
         - name: ELASTICSEARCH_PASSWORD
@@ -80,4 +80,15 @@ spec:
       - name: config
         configMap:
           name: kibana-config
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - apm-server
+                - elasticsearch
+            topologyKey: "kubernetes.io/hostname"
 ---

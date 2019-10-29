@@ -49,10 +49,14 @@ metadata:
 spec:
   serviceName: "elasticsearch-data"
   replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+      role: data
   template:
     metadata:
       labels:
-        app: elasticsearch-data
+        app: elasticsearch
         role: data
     spec:
       containers:
@@ -69,6 +73,11 @@ spec:
           value: elasticsearch-master,elasticsearch-client
         - name: cluster.initial_master_nodes
           value: elasticsearch-master
+        - name: ELASTIC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: elasticsearch-pw-elastic
+              key: password
         - name: "ES_JAVA_OPTS"
           value: "-Xms1024m -Xmx1024m"
         ports:
@@ -85,6 +94,16 @@ spec:
       - name: config
         configMap:
           name: elasticsearch-data-config
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - elasticsearch
+            topologyKey: "kubernetes.io/hostname"
   volumeClaimTemplates:
   - metadata:
       name: elasticsearch-data-persistent-storage

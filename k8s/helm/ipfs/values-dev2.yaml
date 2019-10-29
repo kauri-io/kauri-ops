@@ -1,5 +1,18 @@
 replicaCount: 2
 image: ipfs/go-ipfs:release
+swarm:
+  port: 30036
+  minConnection: 200
+  maxConnection: 300
+  gracePeriod: "60s"
+  disableBandwidthMetrics: "true"
+  disableNatPortMap: "true"
+  disableRelay: "false"
+  enableAutoNATService: "false"
+  enableAutoRelay: "false"
+  enableRelayHop: "false"
+routing:
+  type: "dhtclient"
 persistence:
   storageClass: "storageclass"
 ipfscluster:
