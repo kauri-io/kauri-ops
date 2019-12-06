@@ -1,5 +1,5 @@
 replicaCount: 2
-image: ipfs/go-ipfs:release
+image: ipfs/go-ipfs:v0.4.20
 swarm:
   port: 30036
   minConnection: 200
