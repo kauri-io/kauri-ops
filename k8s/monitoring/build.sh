@@ -30,14 +30,18 @@ waitForServiceNC ()
   done
   echo
   echo $1 ready!
-
 }
-
+createSecret ()
+{
+  kubectl delete secrets -n monitoring $1
+  kubectl create secret generic $1 --from-literal password=$2 -n monitoring
+}
 ##########################################
-# 1. CLEANUP
+# 0. CLEANUP
 echo
 echo '# Cleanup'
 kubectl delete all --all -n monitoring
+kubectl delete ingress -n dev monitoring-kibana-ingress monitoring-apm-ingress
 kubectl delete pvc -n monitoring elasticsearch-data-persistent-storage-elasticsearch-data-0
 kubectl delete secrets -n monitoring --all
 kubectl delete service -n dev kibana-ext
@@ -56,16 +60,18 @@ kubectl apply -f ./monitoring.namespace.yml
 echo
 echo '# Install ElasticSearch cluster'
 
-kubectl apply -f ./elasticsearch-master.yml \
-              -f ./elasticsearch-data.yml \
-              -f ./elasticsearch-client.yml
+# kubectl apply -f ./elasticsearch-master.yml \
+#               -f ./elasticsearch-data.yml \
+#               -f ./elasticsearch-client.yml
+createSecret elasticsearch-pw-elastic ""
+kubectl apply -f ./elasticsearch.yml
 
-waitForServiceNC "ElasticSearch cluster" elasticsearch-client localhost 9200
+waitForServiceNC "ElasticSearch cluster" elasticsearch localhost 9200
 
 echo
 echo 'Generating passwords'
 sleep 10s
-output=$(kubectl exec $(kubectl get pods -n monitoring | grep elasticsearch-client | sed -n 1p | awk '{print $1}')\
+output=$(kubectl exec $(kubectl get pods -n monitoring | grep elasticsearch | sed -n 1p | awk '{print $1}')\
              -n monitoring \
              -- bin/elasticsearch-setup-passwords auto -b)
 
@@ -74,8 +80,18 @@ echo elastic: $PW_ELASTIC
 
 echo
 echo 'Creating secrets:'
-kubectl create secret generic elasticsearch-pw-elastic --from-literal password=$PW_ELASTIC -n monitoring
+createSecret elasticsearch-pw-elastic $PW_ELASTIC
 
+echo
+echo 'Hot Configuration:'
+kubectl exec -n monitoring elasticsearch-0 -- curl -XPUT 'http://localhost:9200/_template/default' -uelastic:$PW_ELASTIC -H 'Content-Type: application/json' -d '{
+  "index_patterns": ["*"],
+  "order": -1,
+  "settings": {
+    "number_of_shards": "1",
+    "number_of_replicas": "0"
+  }
+}'
 
 ##########################################
 # 3. KIBANA
