@@ -54,6 +54,8 @@ spec:
             value: TRACE
           - name: KAFKA_ADDRESSES
             value: kafka-uat.uat:9092
+          - name: ELASTIC_APM_SERVER
+            value: http://apm-server.monitoring.svc.cluster.local:8200
         ports:
         - containerPort: 8080
         volumeMounts:
