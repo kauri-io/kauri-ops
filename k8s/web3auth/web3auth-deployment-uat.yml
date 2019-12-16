@@ -45,7 +45,7 @@ spec:
           - name: DOMAIN_NAME
             value: ".kauri.io"
           - name: CORS_ORIGIN
-            value: "http://localhost:3000,https://.*.kauri.io,https://.*.kauri.*.now.sh"
+            value: "https://kauri.io,https://www.kauri.io"
           - name: CORS_HEADERS
             value: "Access-Control-Allow-Headers,Origin,X-Requested-With,Content-Type,Accept,X-Auth-Token,elastic-apm-traceparent"
           - name: SPRING_DATA_MONGODB_URI
@@ -54,6 +54,8 @@ spec:
             value: TRACE
           - name: KAFKA_ADDRESSES
             value: kafka-uat.uat:9092
+          - name: ELASTIC_APM_SERVER
+            value: http://apm-server.monitoring.svc.cluster.local:8200
         ports:
         - containerPort: 8080
         volumeMounts:

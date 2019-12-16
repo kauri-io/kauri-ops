@@ -45,7 +45,7 @@ spec:
           - name: DOMAIN_NAME
             value: ".dev2.kauri.io"
           - name: CORS_ORIGIN
-            value: "http://localhost:3000,https://.*.kauri.io,https://.*.kauri.*.now.sh"
+            value: "http://localhost:3000,https://.*.kauri.io,https://*.now.sh"
           - name: CORS_HEADERS
             value: "Access-Control-Allow-Headers,Origin,X-Requested-With,Content-Type,Accept,X-Auth-Token,elastic-apm-traceparent"
           - name: SPRING_DATA_MONGODB_URI
