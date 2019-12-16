@@ -42,7 +42,7 @@ data:
                         - ${data.kubernetes.container.id}
                   slowlog:
                     var.hosts: ["${data.host}:${data.port}"]
-                    var.password: 8YLQaUSNUX
+                    var.password: Zw0LRCQfLb # << TODO environment var
             - condition.equals:
                 kubernetes.labels.role: mongo
               config:
@@ -122,7 +122,7 @@ data:
             }
           },
           "delete": {
-            "min_age": "7d",
+            "min_age": "30d",
             "actions": {
               "delete": {}
             }

@@ -85,7 +85,9 @@ spec:
           readOnly: true
           subPath: elasticsearch.yml
         - name: elasticsearch-data-persistent-storage
-          mountPath: /data
+          mountPath: /usr/share/elasticsearch/data
+      securityContext:
+        fsGroup: 1000
       volumes:
       - name: config
         configMap:
@@ -99,7 +101,7 @@ spec:
                 operator: In
                 values:
                 - kibana
-                - apm-server
+                #- apm-server
             topologyKey: "kubernetes.io/hostname"
   volumeClaimTemplates:
   - metadata:
