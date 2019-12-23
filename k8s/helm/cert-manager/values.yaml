@@ -1,6 +1,5 @@
 image:
-  image:
-    tag: v0.6.1
+  tag: v0.12.0
 ingressShim:
   defaultIssuerName: "letsencrypt-prod"
   defaultIssuerKind: "ClusterIssuer"
