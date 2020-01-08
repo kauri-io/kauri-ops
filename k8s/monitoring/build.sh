@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "###################### BUILD MONITORING (env=${TARGET_ENV})" 
+echo "###################### BUILD MONITORING (env=${TARGET_ENV})"
 
 if [[ -z "${TARGET_ENV}" ]]; then
   echo "Environment not set, please run env_setup script in ops folder"
@@ -44,7 +44,7 @@ echo
 echo '# Cleanup'
 kubectl delete all --all -n monitoring
 kubectl delete ingress -n dev monitoring-kibana-ingress monitoring-apm-ingress
-kubectl delete pvc -n monitoring elasticsearch-data-persistent-storage-elasticsearch-data-0
+kubectl delete pvc -n monitoring elasticsearch-data-persistent-storage-elasticsearch-0
 kubectl delete secrets -n monitoring --all
 kubectl delete service -n dev kibana-ext
 
