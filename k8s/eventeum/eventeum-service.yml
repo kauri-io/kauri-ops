@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventeum
+  labels:
+    app: eventeum
+spec:
+  sessionAffinity: "ClientIP"
+  ports:
+    - port: 8060
+      protocol: TCP
+  selector:
+    app: eventeum

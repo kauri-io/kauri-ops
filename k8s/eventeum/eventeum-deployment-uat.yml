@@ -1,0 +1,68 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: eventeum
+  labels:
+    app: eventeum
+    tier: compute
+spec:
+  replicas: 2
+  revisionHistoryLimit: 0
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: eventeum
+        tier: compute
+    spec:
+      containers:
+      - image: eventeum/eventeum:0.8.1-KAURI
+        command:
+          - "java"
+          - "-jar"
+          - "/eventeum-server.jar"
+          - "--spring.config.additional-location=${EVENTEUM_CONF}"
+        imagePullPolicy: Always
+        name: web3-auth
+        env:
+          - name: EVENTEUM_CONF
+            value: /etc/config/eventeum-conf.yml
+          - name: RPC_URL
+            value: wss://rinkeby.infura.io/ws/v3/87c490fc024f49129e6f99f99aa23e2c
+          - name: SIDECHAIN_RPC_URL
+            value: http://54.144.107.14:8545
+          - name: SPRING_DATA_MONGODB_URI
+            value: mongodb://mongo-0.mongo.uat.svc.cluster.local:27017,mongo-1.mongo.uat.svc.cluster.local:27017,mongo-2.mongo.uat.svc.cluster.local:27017/web3auth?replicaSet=rs0
+          - name: KAFKA_ADDRESSES
+            value: kafka-uat.uat:9092
+          - name: CONTRACT_ADDRESS
+            valueFrom:
+              secretKeyRef:
+                name: smart-contract-addresses
+                key: KuariCoreContractAddress
+          - name: MODERATOR_CONTRACT_ADDRESS
+            valueFrom:
+              secretKeyRef:
+                name: smart-contract-addresses
+                key: ModeratorContractAddress
+          - name: WALLET_CONTRACT_ADDRESS
+            valueFrom:
+              secretKeyRef:
+                name: smart-contract-addresses
+                key: WalletContractAddress
+          - name: COMMUNITY_CONTRACT_ADDRESS
+            valueFrom:
+              secretKeyRef:
+                name: smart-contract-sidechain-addresses
+                key: GroupContractAddress
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: eventeum-config
