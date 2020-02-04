@@ -37,21 +37,11 @@ spec:
             value: mongodb://mongo-0.mongo.dev2.svc.cluster.local:27017,mongo-1.mongo.dev2.svc.cluster.local:27017,mongo-2.mongo.dev2.svc.cluster.local:27017/web3auth?replicaSet=rs0
           - name: KAFKA_ADDRESSES
             value: kafka-dev2.dev2:9092
-          - name: CONTRACT_ADDRESS
+          - name: CHECKPOINT_CONTRACT_ADDRESS
             valueFrom:
               secretKeyRef:
                 name: smart-contract-addresses
-                key: KuariCoreContractAddress
-          - name: MODERATOR_CONTRACT_ADDRESS
-            valueFrom:
-              secretKeyRef:
-                name: smart-contract-addresses
-                key: ModeratorContractAddress
-          - name: WALLET_CONTRACT_ADDRESS
-            valueFrom:
-              secretKeyRef:
-                name: smart-contract-addresses
-                key: WalletContractAddress
+                key: KauriCheckpointContractAddress
           - name: COMMUNITY_CONTRACT_ADDRESS
             valueFrom:
               secretKeyRef:

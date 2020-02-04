@@ -143,7 +143,7 @@ data:
           type: INDEXED_PARAMETER
           index: 0
       - id: ArticlesCheckpointed
-        contractAddress: ${CONTRACT_ADDRESS:0xedda486ddb7eaa8f9fece8c682efd40f535b3ad5}
+        contractAddress: ${CHECKPOINT_CONTRACT_ADDRESS:0xedda486ddb7eaa8f9fece8c682efd40f535b3ad5}
         eventSpecification:
           eventName: ArticlesCheckpointed
           nonIndexedParameterDefinitions:
