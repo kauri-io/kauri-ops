@@ -1,0 +1,158 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eventeum-config
+  labels:
+    app: eventeum
+data:
+  eventeum-conf.yml: |-
+    ethereum:
+      nodes:
+        - name: default
+          url: ${RPC_URL:wss://rinkeby.infura.io/ws/v3/87c490fc024f49129e6f99f99aa23e2c}
+        - name: sidechain
+          url: ${SIDECHAIN_RPC_URL:https://sokol.poa.network}
+      healthcheck:
+        pollInterval: 2000
+      blockStrategy: POLL
+
+    eventStore:
+      type: DB
+
+    database:
+      type: MONGO
+
+    broadcaster:
+      type: KAFKA
+      cache:
+        expirationMillis: 6000000
+      event:
+        confirmation:
+          numBlocksToWait: 0
+          numBlocksToWaitForMissingTx: 100
+      multiInstance: true
+
+    eventFilters:
+      - id: GroupCreated
+        node: sidechain
+        contractAddress: ${COMMUNITY_CONTRACT_ADDRESS:0xedda486ddb7eaa8f9fece8c682efd40f535b3ad5}
+        eventSpecification:
+          eventName: GroupCreated
+          indexedParameterDefinitions:
+            - position: 0
+              type: UINT256
+            - position: 1
+              type: ADDRESS
+          nonIndexedParameterDefinitions:
+            - position: 2
+              type: BYTES32
+        correlationId:
+          type: INDEXED_PARAMETER
+          index: 0
+      - id: InvitationPending
+        node: sidechain
+        contractAddress: ${COMMUNITY_CONTRACT_ADDRESS:0xedda486ddb7eaa8f9fece8c682efd40f535b3ad5}
+        eventSpecification:
+          eventName: InvitationPending
+          indexedParameterDefinitions:
+            - position: 0
+              type: UINT256
+            - position: 1
+              type: UINT8
+          nonIndexedParameterDefinitions:
+            - position: 2
+              type: BYTES32
+        correlationId:
+          type: INDEXED_PARAMETER
+          index: 0
+      - id: InvitationRevoked
+        node: sidechain
+        contractAddress: ${COMMUNITY_CONTRACT_ADDRESS:0xedda486ddb7eaa8f9fece8c682efd40f535b3ad5}
+        eventSpecification:
+          eventName: InvitationRevoked
+          indexedParameterDefinitions:
+            - position: 0
+              type: UINT256
+            - position: 1
+              type: UINT8
+          nonIndexedParameterDefinitions:
+            - position: 2
+              type: BYTES32
+        correlationId:
+          type: INDEXED_PARAMETER
+          index: 0
+      - id: AcceptCommitted
+        node: sidechain
+        contractAddress: ${COMMUNITY_CONTRACT_ADDRESS:0xedda486ddb7eaa8f9fece8c682efd40f535b3ad5}
+        eventSpecification:
+          eventName: AcceptCommitted
+          indexedParameterDefinitions:
+            - position: 0
+              type: UINT256
+            - position: 1
+              type: BYTES32
+        correlationId:
+          type: INDEXED_PARAMETER
+          index: 0
+      - id: MemberAdded
+        node: sidechain
+        contractAddress: ${COMMUNITY_CONTRACT_ADDRESS:0xedda486ddb7eaa8f9fece8c682efd40f535b3ad5}
+        eventSpecification:
+          eventName: MemberAdded
+          indexedParameterDefinitions:
+            - position: 0
+              type: ADDRESS
+            - position: 1
+              type: UINT256
+            - position: 2
+              type: UINT8
+        correlationId:
+          type: INDEXED_PARAMETER
+          index: 1
+      - id: MemberRemoved
+        node: sidechain
+        contractAddress: ${COMMUNITY_CONTRACT_ADDRESS:0xedda486ddb7eaa8f9fece8c682efd40f535b3ad5}
+        eventSpecification:
+          eventName: MemberRemoved
+          indexedParameterDefinitions:
+            - position: 0
+              type: UINT256
+            - position: 1
+              type: ADDRESS
+            - position: 2
+              type: UINT8
+        correlationId:
+          type: INDEXED_PARAMETER
+          index: 0
+      - id: MemberRoleChanged
+        node: sidechain
+        contractAddress: ${COMMUNITY_CONTRACT_ADDRESS:0xedda486ddb7eaa8f9fece8c682efd40f535b3ad5}
+        eventSpecification:
+          eventName: MemberRoleChanged
+          indexedParameterDefinitions:
+            - position: 0
+              type: UINT256
+            - position: 1
+              type: ADDRESS
+            - position: 2
+              type: UINT8
+          nonIndexedParameterDefinitions:
+            - position: 3
+              type: UINT8
+        correlationId:
+          type: INDEXED_PARAMETER
+          index: 0
+      - id: ArticlesCheckpointed
+        contractAddress: ${CHECKPOINT_CONTRACT_ADDRESS:0xedda486ddb7eaa8f9fece8c682efd40f535b3ad5}
+        eventSpecification:
+          eventName: ArticlesCheckpointed
+          nonIndexedParameterDefinitions:
+            - position: 0
+              type: BYTES32
+            - position: 1
+              type: STRING
+            - position: 2
+              type: ADDRESS
+        correlationId:
+          type: NON_INDEXED_PARAMETER
+          index: 0

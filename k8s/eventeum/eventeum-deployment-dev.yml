@@ -1,0 +1,58 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: eventeum
+  labels:
+    app: eventeum
+    tier: compute
+spec:
+  replicas: 2
+  revisionHistoryLimit: 0
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: eventeum
+        tier: compute
+    spec:
+      containers:
+      - image: eventeum/eventeum:0.8.1-KAURI
+        command:
+          - "java"
+          - "-jar"
+          - "/eventeum-server.jar"
+          - "--spring.config.additional-location=${EVENTEUM_CONF}"
+        imagePullPolicy: Always
+        name: web3-auth
+        env:
+          - name: EVENTEUM_CONF
+            value: /etc/config/eventeum-conf.yml
+          - name: RPC_URL
+            value: wss://rinkeby.infura.io/ws/v3/12e1ce27a3b34cbe9e9403a35617e2af
+          - name: SIDECHAIN_RPC_URL
+            value: https://sokol.poa.network
+          - name: SPRING_DATA_MONGODB_URI
+            value: mongodb://mongo-0.mongo.dev.svc.cluster.local:27017/eventeum
+          - name: KAFKA_ADDRESSES
+            value: kafka-dev.dev:9092
+          - name: CHECKPOINT_CONTRACT_ADDRESS
+            valueFrom:
+              secretKeyRef:
+                name: smart-contract-addresses
+                key: KauriCheckpointContractAddress
+          - name: COMMUNITY_CONTRACT_ADDRESS
+            valueFrom:
+              secretKeyRef:
+                name: smart-contract-sidechain-addresses
+                key: GroupContractAddress
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: eventeum-config
