@@ -34,7 +34,7 @@ spec:
           - name: SIDECHAIN_RPC_URL
             value: https://sokol.poa.network
           - name: SPRING_DATA_MONGODB_URI
-            value: mongodb://mongo-0.mongo.dev2.svc.cluster.local:27017,mongo-1.mongo.dev2.svc.cluster.local:27017,mongo-2.mongo.dev2.svc.cluster.local:27017/web3auth?replicaSet=rs0
+            value: mongodb://mongo-0.mongo.dev2.svc.cluster.local:27017,mongo-1.mongo.dev2.svc.cluster.local:27017,mongo-2.mongo.dev2.svc.cluster.local:27017/eventeum?replicaSet=rs0
           - name: KAFKA_ADDRESSES
             value: kafka-dev2.dev2:9092
           - name: CHECKPOINT_CONTRACT_ADDRESS
